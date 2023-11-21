@@ -4,72 +4,33 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
-    
+    let arObjectManager = ARObjectManager() // ARObjectManagerのインスタンス化
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // sceneViewがnilでないことを確認する
-        guard let sceneView = sceneView else { return }
 
-        // ARSCNViewのデリゲートを設定
+        guard let sceneView = sceneView else { return }
         sceneView.delegate = self
         
-        // 新しいシーンを作成
         let scene = SCNScene()
         sceneView.scene = scene
         
-        // ARセッションを開始
         let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
         sceneView.session.run(configuration)
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        sceneView.addGestureRecognizer(tapGesture)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        // sceneViewがnilでないことを確認し、三角形とテキストのノードを追加
-        if let sceneView = sceneView {
-            addTriangleAndTextToScene()
+    @objc func handleTap(gestureRecognize: UITapGestureRecognizer) {
+        let location = gestureRecognize.location(in: sceneView)
+        let hitResults = sceneView.hitTest(location, types: .existingPlaneUsingExtent)
+        if let hitResult = hitResults.first {
+            let position = SCNVector3(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y, hitResult.worldTransform.columns.3.z)
+            arObjectManager.placeObjects(at: position, in: sceneView.scene)
         }
     }
-
-    func addTriangleAndTextToScene() {
-        // このメソッドが呼ばれた時、sceneViewがnilでないことを確認
-        guard let sceneView = sceneView else { return }
-
-        let triangleNode = createTriangleNode()
-        triangleNode.position = SCNVector3(0, 0, -0.5) // カメラの前方に配置
-        sceneView.scene.rootNode.addChildNode(triangleNode)
-
-        let textNode = createTextNode()
-        textNode.position = SCNVector3(0, 0.1, -0.5) // 三角形の上に配置
-        sceneView.scene.rootNode.addChildNode(textNode)
-    }
-
-    func createTriangleNode() -> SCNNode {
-        let vertices: [SCNVector3] = [
-            SCNVector3(0, 0.1, 0),   // 頂点1
-            SCNVector3(-0.1, -0.1, 0), // 頂点2
-            SCNVector3(0.1, -0.1, 0)  // 頂点3
-        ]
-
-        let indices: [Int32] = [0, 1, 2]
-
-        let source = SCNGeometrySource(vertices: vertices)
-        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
-        let geometry = SCNGeometry(sources: [source], elements: [element])
-        let material = SCNMaterial()
-        material.diffuse.contents = UIColor.green // 三角形の色を緑に設定
-        geometry.materials = [material]
-
-        return SCNNode(geometry: geometry)
-    }
-
-    func createTextNode() -> SCNNode {
-        let textGeometry = SCNText(string: "10°", extrusionDepth: 0.01)
-        textGeometry.firstMaterial?.diffuse.contents = UIColor.green // テキストの色を緑に設定
-        let textNode = SCNNode(geometry: textGeometry)
-        textNode.scale = SCNVector3(0.01, 0.01, 0.01) // テキストのサイズ調整
-        return textNode
-    }
 }
+
 
