@@ -1,110 +1,75 @@
-//
-//  ViewController.swift
-//  BarrierVison
-//
-//  Created by e215402 on 2023/10/24.
-//
-
 import UIKit
-import Metal
-import MetalKit
 import ARKit
 
-extension MTKView : RenderDestinationProvider {
-}
-
-class ViewController: UIViewController, MTKViewDelegate, ARSessionDelegate {
+class ViewController: UIViewController, ARSCNViewDelegate {
     
-    var session: ARSession!
-    var renderer: Renderer!
+    @IBOutlet var sceneView: ARSCNView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set the view's delegate
-        session = ARSession()
-        session.delegate = self
+        // sceneViewがnilでないことを確認する
+        guard let sceneView = sceneView else { return }
+
+        // ARSCNViewのデリゲートを設定
+        sceneView.delegate = self
         
-        // Set the view to use the default device
-        if let view = self.view as? MTKView {
-            view.device = MTLCreateSystemDefaultDevice()
-            view.backgroundColor = UIColor.clear
-            view.delegate = self
-            
-            guard view.device != nil else {
-                print("Metal is not supported on this device")
-                return
-            }
-            
-            // Configure the renderer to draw to the view
-            renderer = Renderer(session: session, metalDevice: view.device!, renderDestination: view)
-            
-            renderer.drawRectResized(size: view.bounds.size)
-        }
+        // 新しいシーンを作成
+        let scene = SCNScene()
+        sceneView.scene = scene
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ViewController.handleTap(gestureRecognize:)))
-        view.addGestureRecognizer(tapGesture)
+        // ARセッションを開始
+        let configuration = ARWorldTrackingConfiguration()
+        sceneView.session.run(configuration)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
 
-        // Run the view's session
-        session.run(configuration)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // Pause the view's session
-        session.pause()
-    }
-    
-    @objc
-    func handleTap(gestureRecognize: UITapGestureRecognizer) {
-        // Create anchor using the camera's current position
-        if let currentFrame = session.currentFrame {
-            
-            // Create a transform with a translation of 0.2 meters in front of the camera
-            var translation = matrix_identity_float4x4
-            translation.columns.3.z = -0.2
-            let transform = simd_mul(currentFrame.camera.transform, translation)
-            
-            // Add a new anchor to the session
-            let anchor = ARAnchor(transform: transform)
-            session.add(anchor: anchor)
+        // sceneViewがnilでないことを確認し、三角形とテキストのノードを追加
+        if let sceneView = sceneView {
+            addTriangleAndTextToScene()
         }
     }
-    
-    // MARK: - MTKViewDelegate
-    
-    // Called whenever view changes orientation or layout is changed
-    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
-        renderer.drawRectResized(size: size)
+
+    func addTriangleAndTextToScene() {
+        // このメソッドが呼ばれた時、sceneViewがnilでないことを確認
+        guard let sceneView = sceneView else { return }
+
+        let triangleNode = createTriangleNode()
+        triangleNode.position = SCNVector3(0, 0, -0.5) // カメラの前方に配置
+        sceneView.scene.rootNode.addChildNode(triangleNode)
+
+        let textNode = createTextNode()
+        textNode.position = SCNVector3(0, 0.1, -0.5) // 三角形の上に配置
+        sceneView.scene.rootNode.addChildNode(textNode)
     }
-    
-    // Called whenever the view needs to render
-    func draw(in view: MTKView) {
-        renderer.update()
+
+    func createTriangleNode() -> SCNNode {
+        let vertices: [SCNVector3] = [
+            SCNVector3(0, 0.1, 0),   // 頂点1
+            SCNVector3(-0.1, -0.1, 0), // 頂点2
+            SCNVector3(0.1, -0.1, 0)  // 頂点3
+        ]
+
+        let indices: [Int32] = [0, 1, 2]
+
+        let source = SCNGeometrySource(vertices: vertices)
+        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
+        let geometry = SCNGeometry(sources: [source], elements: [element])
+        let material = SCNMaterial()
+        material.diffuse.contents = UIColor.green // 三角形の色を緑に設定
+        geometry.materials = [material]
+
+        return SCNNode(geometry: geometry)
     }
-    
-    // MARK: - ARSessionDelegate
-    
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
-        
-    }
-    
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
-    }
-    
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
+
+    func createTextNode() -> SCNNode {
+        let textGeometry = SCNText(string: "10°", extrusionDepth: 0.01)
+        textGeometry.firstMaterial?.diffuse.contents = UIColor.green // テキストの色を緑に設定
+        let textNode = SCNNode(geometry: textGeometry)
+        textNode.scale = SCNVector3(0.01, 0.01, 0.01) // テキストのサイズ調整
+        return textNode
     }
 }
+
