@@ -17,6 +17,7 @@
 		3454DBDE2AE7AAFB0039ACAF /* BarrierVisonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454DBDD2AE7AAFB0039ACAF /* BarrierVisonTests.swift */; };
 		3454DBE82AE7AAFB0039ACAF /* BarrierVisonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454DBE72AE7AAFB0039ACAF /* BarrierVisonUITests.swift */; };
 		3454DBEA2AE7AAFB0039ACAF /* BarrierVisonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454DBE92AE7AAFB0039ACAF /* BarrierVisonUITestsLaunchTests.swift */; };
+		34BF70EE2B0C81FB005D6614 /* ARObjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF70ED2B0C81FB005D6614 /* ARObjectManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		3454DBE32AE7AAFB0039ACAF /* BarrierVisonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BarrierVisonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3454DBE72AE7AAFB0039ACAF /* BarrierVisonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarrierVisonUITests.swift; sourceTree = "<group>"; };
 		3454DBE92AE7AAFB0039ACAF /* BarrierVisonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarrierVisonUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		34BF70ED2B0C81FB005D6614 /* ARObjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARObjectManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				3454DBC52AE7AAFA0039ACAF /* Shaders.metal */,
 				3454DBC72AE7AAFA0039ACAF /* ShaderTypes.h */,
 				3454DBC82AE7AAFA0039ACAF /* Renderer.swift */,
+				34BF70ED2B0C81FB005D6614 /* ARObjectManager.swift */,
 				3454DBCA2AE7AAFA0039ACAF /* ViewController.swift */,
 				3454DBCC2AE7AAFA0039ACAF /* Main.storyboard */,
 				3454DBCF2AE7AAFB0039ACAF /* Assets.xcassets */,
@@ -263,6 +266,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34BF70EE2B0C81FB005D6614 /* ARObjectManager.swift in Sources */,
 				3454DBC62AE7AAFA0039ACAF /* Shaders.metal in Sources */,
 				3454DBC92AE7AAFA0039ACAF /* Renderer.swift in Sources */,
 				3454DBCB2AE7AAFA0039ACAF /* ViewController.swift in Sources */,
@@ -457,15 +461,13 @@
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "arkit metal";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeRight;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationLandscapeRight;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.BarrierVisionEnpit.BarrierVison;
+				PRODUCT_BUNDLE_IDENTIFIER = com.BarrierVisionEnpit.BarrierVisonichi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "BarrierVison/BarrierVison-Bridging-Header.h";
@@ -490,15 +492,13 @@
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "arkit metal";
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeRight;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationLandscapeRight;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.BarrierVisionEnpit.BarrierVison;
+				PRODUCT_BUNDLE_IDENTIFIER = com.BarrierVisionEnpit.BarrierVisonichi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "BarrierVison/BarrierVison-Bridging-Header.h";
