@@ -1,11 +1,11 @@
-# <img src="BarrierVison.png" width="200"height="200" alt="BarrierVison Logo">
+ # <img src="BarrierVison.png" width="200" height="200" alt="BarrierVison Logo">
 
 ![platforms](https://img.shields.io/badge/platforms-iOS-333333.svg)
 [![Language: Swift 5.9.2](https://img.shields.io/badge/swift-5.9.2-4BC51D.svg?style=flat)](https://developer.apple.com/swift)
 
 ## プロダクト名
 
-**Barrier Vison**
+**Barrier Vison**<br>
 車いすユーザーにとってバリアフリーな視界を得られるという意味をこめた
 
 ## **エレベーターピッチ**<br>
