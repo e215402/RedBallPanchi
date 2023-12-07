@@ -75,6 +75,15 @@
                                     <segue destination="1md-Tl-6sY" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="sX3-B7-YCp"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pfJ-c6-kpa">
+                                <rect key="frame" x="308" y="699" width="63" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Light"/>
+                                <connections>
+                                    <action selector="toggleLightButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="VYf-FQ-9Vc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6l4-Oa-Vy6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
