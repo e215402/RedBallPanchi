@@ -5,6 +5,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
     let arObjectManager = ARObjectManager() // ARObjectManagerのインスタンス化
+    let cameraLight = UseCameraLight()
+    var isTorchOn = false // トーチの状態を追跡する変数
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             arObjectManager.placeObjects(at: position, in: sceneView.scene)
         }
     }
+        
+    @IBAction func toggleLightButtonPressed(_ sender: UIButton) {
+        isTorchOn.toggle() // トーチの状態を切り替える
+        cameraLight.toggleTorch(on: isTorchOn)
+    }
 }
-
 
