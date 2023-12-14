@@ -33,7 +33,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             arObjectManager.placeObjects(at: position, in: sceneView.scene)
         }
     }
-        
+                                                                                        
     @IBAction func toggleLightButtonPressed(_ sender: UIButton) {
         isTorchOn.toggle() // トーチの状態を切り替える
         cameraLight.toggleTorch(on: isTorchOn)
