@@ -18,7 +18,22 @@
 		3454DBE82AE7AAFB0039ACAF /* BarrierVisonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454DBE72AE7AAFB0039ACAF /* BarrierVisonUITests.swift */; };
 		3454DBEA2AE7AAFB0039ACAF /* BarrierVisonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3454DBE92AE7AAFB0039ACAF /* BarrierVisonUITestsLaunchTests.swift */; };
 		34BF70EE2B0C81FB005D6614 /* ARObjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BF70ED2B0C81FB005D6614 /* ARObjectManager.swift */; };
+		34C6E3592B21BEC7000A2139 /* UseCameraLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C6E3582B21BEC7000A2139 /* UseCameraLight.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		34C6E35A2B21DBAB000A2139 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = text.plist;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# builtin-copyPlist\n";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
 		3454DBDA2AE7AAFB0039ACAF /* PBXContainerItemProxy */ = {
@@ -38,7 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3454DBC02AE7AAFA0039ACAF /* BarrierVison.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BarrierVison.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3454DBC02AE7AAFA0039ACAF /* BarrierVision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BarrierVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3454DBC32AE7AAFA0039ACAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3454DBC52AE7AAFA0039ACAF /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		3454DBC72AE7AAFA0039ACAF /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
@@ -48,12 +63,13 @@
 		3454DBCF2AE7AAFB0039ACAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3454DBD22AE7AAFB0039ACAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3454DBD42AE7AAFB0039ACAF /* BarrierVison-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BarrierVison-Bridging-Header.h"; sourceTree = "<group>"; };
-		3454DBD92AE7AAFB0039ACAF /* BarrierVisonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BarrierVisonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3454DBD92AE7AAFB0039ACAF /* BarrierVisionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BarrierVisionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3454DBDD2AE7AAFB0039ACAF /* BarrierVisonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarrierVisonTests.swift; sourceTree = "<group>"; };
-		3454DBE32AE7AAFB0039ACAF /* BarrierVisonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BarrierVisonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3454DBE32AE7AAFB0039ACAF /* BarrierVisionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BarrierVisionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3454DBE72AE7AAFB0039ACAF /* BarrierVisonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarrierVisonUITests.swift; sourceTree = "<group>"; };
 		3454DBE92AE7AAFB0039ACAF /* BarrierVisonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarrierVisonUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		34BF70ED2B0C81FB005D6614 /* ARObjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARObjectManager.swift; sourceTree = "<group>"; };
+		34C6E3582B21BEC7000A2139 /* UseCameraLight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCameraLight.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,9 +110,9 @@
 		3454DBC12AE7AAFA0039ACAF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3454DBC02AE7AAFA0039ACAF /* BarrierVison.app */,
-				3454DBD92AE7AAFB0039ACAF /* BarrierVisonTests.xctest */,
-				3454DBE32AE7AAFB0039ACAF /* BarrierVisonUITests.xctest */,
+				3454DBC02AE7AAFA0039ACAF /* BarrierVision.app */,
+				3454DBD92AE7AAFB0039ACAF /* BarrierVisionTests.xctest */,
+				3454DBE32AE7AAFB0039ACAF /* BarrierVisionUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -111,6 +127,7 @@
 				34BF70ED2B0C81FB005D6614 /* ARObjectManager.swift */,
 				3454DBCA2AE7AAFA0039ACAF /* ViewController.swift */,
 				3454DBCC2AE7AAFA0039ACAF /* Main.storyboard */,
+				34C6E3582B21BEC7000A2139 /* UseCameraLight.swift */,
 				3454DBCF2AE7AAFB0039ACAF /* Assets.xcassets */,
 				3454DBD12AE7AAFB0039ACAF /* LaunchScreen.storyboard */,
 				3454DBD42AE7AAFB0039ACAF /* BarrierVison-Bridging-Header.h */,
@@ -138,26 +155,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3454DBBF2AE7AAFA0039ACAF /* BarrierVison */ = {
+		3454DBBF2AE7AAFA0039ACAF /* BarrierVision */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3454DBED2AE7AAFB0039ACAF /* Build configuration list for PBXNativeTarget "BarrierVison" */;
+			buildConfigurationList = 3454DBED2AE7AAFB0039ACAF /* Build configuration list for PBXNativeTarget "BarrierVision" */;
 			buildPhases = (
 				3454DBBC2AE7AAFA0039ACAF /* Sources */,
 				3454DBBD2AE7AAFA0039ACAF /* Frameworks */,
 				3454DBBE2AE7AAFA0039ACAF /* Resources */,
 			);
 			buildRules = (
+				34C6E35A2B21DBAB000A2139 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
-			name = BarrierVison;
+			name = BarrierVision;
 			productName = BarrierVison;
-			productReference = 3454DBC02AE7AAFA0039ACAF /* BarrierVison.app */;
+			productReference = 3454DBC02AE7AAFA0039ACAF /* BarrierVision.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3454DBD82AE7AAFB0039ACAF /* BarrierVisonTests */ = {
+		3454DBD82AE7AAFB0039ACAF /* BarrierVisionTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3454DBF02AE7AAFB0039ACAF /* Build configuration list for PBXNativeTarget "BarrierVisonTests" */;
+			buildConfigurationList = 3454DBF02AE7AAFB0039ACAF /* Build configuration list for PBXNativeTarget "BarrierVisionTests" */;
 			buildPhases = (
 				3454DBD52AE7AAFB0039ACAF /* Sources */,
 				3454DBD62AE7AAFB0039ACAF /* Frameworks */,
@@ -168,14 +186,14 @@
 			dependencies = (
 				3454DBDB2AE7AAFB0039ACAF /* PBXTargetDependency */,
 			);
-			name = BarrierVisonTests;
+			name = BarrierVisionTests;
 			productName = BarrierVisonTests;
-			productReference = 3454DBD92AE7AAFB0039ACAF /* BarrierVisonTests.xctest */;
+			productReference = 3454DBD92AE7AAFB0039ACAF /* BarrierVisionTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3454DBE22AE7AAFB0039ACAF /* BarrierVisonUITests */ = {
+		3454DBE22AE7AAFB0039ACAF /* BarrierVisionUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3454DBF32AE7AAFB0039ACAF /* Build configuration list for PBXNativeTarget "BarrierVisonUITests" */;
+			buildConfigurationList = 3454DBF32AE7AAFB0039ACAF /* Build configuration list for PBXNativeTarget "BarrierVisionUITests" */;
 			buildPhases = (
 				3454DBDF2AE7AAFB0039ACAF /* Sources */,
 				3454DBE02AE7AAFB0039ACAF /* Frameworks */,
@@ -186,9 +204,9 @@
 			dependencies = (
 				3454DBE52AE7AAFB0039ACAF /* PBXTargetDependency */,
 			);
-			name = BarrierVisonUITests;
+			name = BarrierVisionUITests;
 			productName = BarrierVisonUITests;
-			productReference = 3454DBE32AE7AAFB0039ACAF /* BarrierVisonUITests.xctest */;
+			productReference = 3454DBE32AE7AAFB0039ACAF /* BarrierVisionUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -214,7 +232,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3454DBBB2AE7AAFA0039ACAF /* Build configuration list for PBXProject "BarrierVison" */;
+			buildConfigurationList = 3454DBBB2AE7AAFA0039ACAF /* Build configuration list for PBXProject "BarrierVision" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -227,9 +245,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3454DBBF2AE7AAFA0039ACAF /* BarrierVison */,
-				3454DBD82AE7AAFB0039ACAF /* BarrierVisonTests */,
-				3454DBE22AE7AAFB0039ACAF /* BarrierVisonUITests */,
+				3454DBBF2AE7AAFA0039ACAF /* BarrierVision */,
+				3454DBD82AE7AAFB0039ACAF /* BarrierVisionTests */,
+				3454DBE22AE7AAFB0039ACAF /* BarrierVisionUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -267,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				34BF70EE2B0C81FB005D6614 /* ARObjectManager.swift in Sources */,
+				34C6E3592B21BEC7000A2139 /* UseCameraLight.swift in Sources */,
 				3454DBC62AE7AAFA0039ACAF /* Shaders.metal in Sources */,
 				3454DBC92AE7AAFA0039ACAF /* Renderer.swift in Sources */,
 				3454DBCB2AE7AAFA0039ACAF /* ViewController.swift in Sources */,
@@ -296,12 +315,12 @@
 /* Begin PBXTargetDependency section */
 		3454DBDB2AE7AAFB0039ACAF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3454DBBF2AE7AAFA0039ACAF /* BarrierVison */;
+			target = 3454DBBF2AE7AAFA0039ACAF /* BarrierVision */;
 			targetProxy = 3454DBDA2AE7AAFB0039ACAF /* PBXContainerItemProxy */;
 		};
 		3454DBE52AE7AAFB0039ACAF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3454DBBF2AE7AAFA0039ACAF /* BarrierVison */;
+			target = 3454DBBF2AE7AAFA0039ACAF /* BarrierVision */;
 			targetProxy = 3454DBE42AE7AAFB0039ACAF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -452,7 +471,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7VFZ7Z9ZDN;
+				DEVELOPMENT_TEAM = 8ZN64S6A2F;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -523,7 +542,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BarrierVison.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BarrierVison";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BarrierVision.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BarrierVision";
 			};
 			name = Debug;
 		};
@@ -543,7 +562,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BarrierVison.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BarrierVison";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BarrierVision.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BarrierVision";
 			};
 			name = Release;
 		};
@@ -586,7 +605,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3454DBBB2AE7AAFA0039ACAF /* Build configuration list for PBXProject "BarrierVison" */ = {
+		3454DBBB2AE7AAFA0039ACAF /* Build configuration list for PBXProject "BarrierVision" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3454DBEB2AE7AAFB0039ACAF /* Debug */,
@@ -595,7 +614,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3454DBED2AE7AAFB0039ACAF /* Build configuration list for PBXNativeTarget "BarrierVison" */ = {
+		3454DBED2AE7AAFB0039ACAF /* Build configuration list for PBXNativeTarget "BarrierVision" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3454DBEE2AE7AAFB0039ACAF /* Debug */,
@@ -604,7 +623,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3454DBF02AE7AAFB0039ACAF /* Build configuration list for PBXNativeTarget "BarrierVisonTests" */ = {
+		3454DBF02AE7AAFB0039ACAF /* Build configuration list for PBXNativeTarget "BarrierVisionTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3454DBF12AE7AAFB0039ACAF /* Debug */,
@@ -613,7 +632,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3454DBF32AE7AAFB0039ACAF /* Build configuration list for PBXNativeTarget "BarrierVisonUITests" */ = {
+		3454DBF32AE7AAFB0039ACAF /* Build configuration list for PBXNativeTarget "BarrierVisionUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3454DBF42AE7AAFB0039ACAF /* Debug */,
