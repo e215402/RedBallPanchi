@@ -4,6 +4,9 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
+    
+    @IBOutlet weak var lightON: UILabel!
+    
     let arObjectManager = ARObjectManager() // ARObjectManagerのインスタンス化
     let cameraLight = UseCameraLight()
     var isTorchOn = false // トーチの状態を追跡する変数
@@ -37,6 +40,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func toggleLightButtonPressed(_ sender: UIButton) {
         isTorchOn.toggle() // トーチの状態を切り替える
         cameraLight.toggleTorch(on: isTorchOn)
+        if isTorchOn {
+            lightON.backgroundColor = UIColor.yellow
+        } else {
+            lightON.backgroundColor = UIColor.clear
+        }
     }
 }
+
 
