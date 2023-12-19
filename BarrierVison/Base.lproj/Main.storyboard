@@ -75,6 +75,34 @@
                                     <segue destination="1md-Tl-6sY" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="sX3-B7-YCp"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqe-Qh-bRG" userLabel="lightON">
+                                <rect key="frame" x="318" y="608" width="55" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="recordframe" translatesAutoresizingMaskIntoConstraints="NO" id="1yq-nE-viv">
+                                <rect key="frame" x="156" y="681" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TC6-qt-kaI" userLabel="record">
+                                <rect key="frame" x="172" y="695" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="recordButtonTap:" destination="BV1-FR-VrT" eventType="touchUpInside" id="tMt-Cj-gQs"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pfJ-c6-kpa" userLabel="light">
                                 <rect key="frame" x="310" y="600" width="70" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -85,14 +113,6 @@
                                     <action selector="toggleLightButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="VYf-FQ-9Vc"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqe-Qh-bRG" userLabel="lightON">
-                                <rect key="frame" x="318" y="608" width="55" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6l4-Oa-Vy6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -100,6 +120,7 @@
                     <navigationItem key="navigationItem" id="vlH-5g-fmr"/>
                     <connections>
                         <outlet property="lightON" destination="dqe-Qh-bRG" id="CSg-ck-Ujb"/>
+                        <outlet property="recordButton" destination="TC6-qt-kaI" id="AnD-H0-f0S"/>
                         <outlet property="sceneView" destination="J9Q-ui-52u" id="lZV-EK-npC"/>
                     </connections>
                 </viewController>
@@ -111,8 +132,12 @@
     <resources>
         <image name="BarrierVisionLogo" width="1666.6666259765625" height="1031.6666259765625"/>
         <image name="light" width="100.66666412353516" height="95.333335876464844"/>
+        <image name="recordframe" width="126" height="108.66666412353516"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
