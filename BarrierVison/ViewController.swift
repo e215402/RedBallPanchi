@@ -6,6 +6,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     let arObjectManager = ARObjectManager() // ARObjectManagerのインスタンス化
 
+    var isRecording = false
+    @IBOutlet weak var recordButton: UIButton!
+    
+    var isPreviewing = false
+    @IBOutlet weak var previewButton: UIButton!
+    
+    @IBOutlet weak var previewON: UILabel!
+    
+    var isLighting = false
+    @IBOutlet weak var lightButton: UIButton!
+    
+    @IBOutlet weak var lightON: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,6 +36,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.addGestureRecognizer(tapGesture)
     }
 
+
+    
     @objc func handleTap(gestureRecognize: UITapGestureRecognizer) {
         let location = gestureRecognize.location(in: sceneView)
         let hitResults = sceneView.hitTest(location, types: .existingPlaneUsingExtent)
@@ -31,6 +46,42 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             arObjectManager.placeObjects(at: position, in: sceneView.scene)
         }
     }
+    
+    
+    @IBAction func recordButtonTap(_ sender: Any) {
+        
+        if isRecording {
+              UIView.animate(withDuration: 0.2) {
+                self.recordButton.frame = CGRect(x:172,y:675,width:50,height:50)
+                self.recordButton.layer.cornerRadius = 25
+              }
+            } else {
+              UIView.animate(withDuration: 0.2) {
+                self.recordButton.frame = CGRect(x:182,y:685,width:30,height:30)
+                self.recordButton.layer.cornerRadius = 3.0
+              }
+            }
+            isRecording = !isRecording
+    }
+    
+    @IBAction func previewButtonTap(_ sender: Any) {
+        if isPreviewing {
+            previewON.backgroundColor = UIColor.clear
+        } else {
+            previewON.backgroundColor = UIColor.red
+        }
+        isPreviewing = !isPreviewing
+    }
+    
+    @IBAction func lightButtonTap(_ sender: Any) {
+        if isLighting {
+            lightON.backgroundColor = UIColor.clear
+        } else {
+            lightON.backgroundColor = UIColor.yellow
+        }
+        isLighting = !isLighting
+    }
+    
 }
 
 

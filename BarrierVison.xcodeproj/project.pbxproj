@@ -54,6 +54,7 @@
 		3454DBE72AE7AAFB0039ACAF /* BarrierVisonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarrierVisonUITests.swift; sourceTree = "<group>"; };
 		3454DBE92AE7AAFB0039ACAF /* BarrierVisonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarrierVisonUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		34BF70ED2B0C81FB005D6614 /* ARObjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARObjectManager.swift; sourceTree = "<group>"; };
+		F8BDBD1D2B311EC20031D50E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +105,7 @@
 		3454DBC22AE7AAFA0039ACAF /* BarrierVison */ = {
 			isa = PBXGroup;
 			children = (
+				F8BDBD1D2B311EC20031D50E /* Info.plist */,
 				3454DBC32AE7AAFA0039ACAF /* AppDelegate.swift */,
 				3454DBC52AE7AAFA0039ACAF /* Shaders.metal */,
 				3454DBC72AE7AAFA0039ACAF /* ShaderTypes.h */,
@@ -454,6 +456,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7VFZ7Z9ZDN;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BarrierVison/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
@@ -485,6 +488,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7VFZ7Z9ZDN;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BarrierVison/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
