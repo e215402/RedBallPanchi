@@ -7,9 +7,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet weak var lightON: UILabel!
     
+    @IBOutlet weak var recordButton: UIButton!
+    
     let arObjectManager = ARObjectManager() // ARObjectManagerのインスタンス化
     let cameraLight = UseCameraLight()
     var isTorchOn = false // トーチの状態を追跡する変数
+    var isRecordOn = false //Recの状態を追跡する変数
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +49,23 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             lightON.backgroundColor = UIColor.clear
         }
     }
+    
+    @IBAction func recordButtonTap(_ sender: Any) {
+        isRecordOn = !isRecordOn
+        if isRecordOn {
+            UIView.animate(withDuration: 0.2) {
+                self.recordButton.frame = CGRect(x:182,y:705,width:30,height:30)
+                self.recordButton.layer.cornerRadius = 3.0
+            }
+        } else {
+            UIView.animate(withDuration: 0.2) {
+                self.recordButton.frame = CGRect(x:172,y:695,width:50,height:50)
+                self.recordButton.layer.cornerRadius = 25
+            }
+        }
+    }
+    
+    
 }
 
 
