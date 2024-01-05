@@ -34,14 +34,38 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
         sceneView.addGestureRecognizer(tapGesture)
     }
     
+    func showWidthAlert() {
+        let alertController = UIAlertController(title: "注意", message: "通路が狭すぎます", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(action)
+        present(alertController, animated: true, completion: nil)
+    }
+
     @objc func handleTap(gestureRecognize: UITapGestureRecognizer) {
         let location = gestureRecognize.location(in: sceneView)
-        let hitResults = sceneView.hitTest(location, types: .existingPlaneUsingExtent)
-        if let hitResult = hitResults.first {
-            let position = SCNVector3(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y, hitResult.worldTransform.columns.3.z)
+        // 新しいレイキャストクエリを作成
+        guard let query = sceneView.raycastQuery(from: location, allowing: .estimatedPlane, alignment: .horizontal) else { return }
+        // セッションでレイキャストを実行
+        let results = sceneView.session.raycast(query)
+        if let firstResult = results.first {
+            // レイキャストの結果を使用してAR体験を更新
+            let position = SCNVector3(firstResult.worldTransform.columns.3.x, firstResult.worldTransform.columns.3.y, firstResult.worldTransform.columns.3.z)
             arObjectManager.placeObjects(at: position, in: sceneView.scene)
         }
+        // デバッグ用の道幅用ポップアップ表示
+        showWidthAlert()
     }
+
+    
+//    @objc func handleTap(gestureRecognize: UITapGestureRecognizer) {
+//        showWidthAlert()
+//        let location = gestureRecognize.location(in: sceneView)
+//        let hitResults = sceneView.hitTest(location, types: .existingPlaneUsingExtent)
+//        if let hitResult = hitResults.first {
+//            let position = SCNVector3(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y, hitResult.worldTransform.columns.3.z)
+//            arObjectManager.placeObjects(at: position, in: sceneView.scene)
+//        }
+//    }
     
     @IBAction func toggleLightButtonPressed(_ sender: UIButton) {
         isTorchOn.toggle() // トーチの状態を切り替える
