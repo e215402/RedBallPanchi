@@ -32,18 +32,19 @@
                                 <buttonConfiguration key="configuration" style="filled" title="ABOUT"/>
                                 <connections>
                                     <action selector="AboutButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="LUz-Dn-b2j"/>
+                                    <segue destination="SwI-TJ-St6" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="nD7-D9-02x"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BarrierVisionLogo" translatesAutoresizingMaskIntoConstraints="NO" id="br0-ay-QHL">
-                                <rect key="frame" x="16" y="192" width="361" height="242"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o27-Hs-Vd2">
                                 <rect key="frame" x="298" y="52" width="79" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Setting"/>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BarrierVisionLogo" translatesAutoresizingMaskIntoConstraints="NO" id="br0-ay-QHL">
+                                <rect key="frame" x="16" y="174" width="361" height="242"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Oeb-jS-c7H"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -55,6 +56,279 @@
             <point key="canvasLocation" x="-254.19847328244273" y="64.788732394366207"/>
         </scene>
         <!--View Controller-->
+        <scene sceneID="zXy-O9-N5C">
+            <objects>
+                <viewController id="SwI-TJ-St6" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5Sy-Ku-LiY">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="1000"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n4D-6c-nhO">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="1000"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uX3-KC-ipX">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1000"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gL-dA-zA7">
+                                                <rect key="frame" x="248" y="30" width="123" height="88"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="メニュー"/>
+                                                <connections>
+                                                    <segue destination="7YA-lT-JJc" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="0OH-js-BRI"/>
+                                                </connections>
+                                            </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BarrierVisionLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ajH-AH-FSf">
+                                                <rect key="frame" x="76" y="108" width="240" height="128"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Hs0-FK-lEy">
+                                                <rect key="frame" x="20" y="306" width="351" height="416"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <string key="text">車椅子ユーザーを手助けしたい、車椅子を使わない人向けのアプリです。Brrier Visionは、スマホでARカメラを起動し、そのルートが車椅子が走行可能か判別することができます。これはLiDARセンサーを使用することで車いすにとっての障害を検知することが可能で、自分に車いすについての知識がなくてもいつでもどこでも手軽に車いすに優しい環境か理解できる機能が備わっています。</string>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1000" id="QfO-ih-5YU"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="uX3-KC-ipX" secondAttribute="trailing" id="2IV-hp-CW5"/>
+                                    <constraint firstItem="uX3-KC-ipX" firstAttribute="width" secondItem="n4D-6c-nhO" secondAttribute="width" id="3VI-5R-Xo6"/>
+                                    <constraint firstAttribute="bottom" secondItem="uX3-KC-ipX" secondAttribute="bottom" id="Dag-eJ-nYq"/>
+                                    <constraint firstItem="uX3-KC-ipX" firstAttribute="width" secondItem="n4D-6c-nhO" secondAttribute="width" id="Hj2-93-sRT"/>
+                                    <constraint firstItem="uX3-KC-ipX" firstAttribute="leading" secondItem="n4D-6c-nhO" secondAttribute="leading" id="KoZ-y7-knQ"/>
+                                    <constraint firstItem="uX3-KC-ipX" firstAttribute="top" secondItem="n4D-6c-nhO" secondAttribute="top" id="LcR-xG-vfS"/>
+                                    <constraint firstAttribute="bottom" secondItem="uX3-KC-ipX" secondAttribute="bottom" id="NEM-Gr-gY9"/>
+                                    <constraint firstAttribute="trailing" secondItem="uX3-KC-ipX" secondAttribute="trailing" id="WcG-45-KsK"/>
+                                    <constraint firstItem="uX3-KC-ipX" firstAttribute="top" secondItem="n4D-6c-nhO" secondAttribute="top" id="YkA-Do-BoA"/>
+                                    <constraint firstItem="uX3-KC-ipX" firstAttribute="leading" secondItem="n4D-6c-nhO" secondAttribute="leading" id="dQZ-h7-BK9"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="bI1-M7-FSY"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="ffO-Yf-UEM"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="CPG-nz-Uiw"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="CPG-nz-Uiw" firstAttribute="bottom" secondItem="n4D-6c-nhO" secondAttribute="bottom" id="Mzm-VO-Ql8"/>
+                            <constraint firstItem="n4D-6c-nhO" firstAttribute="top" secondItem="CPG-nz-Uiw" secondAttribute="top" id="ayP-Xk-8kt"/>
+                            <constraint firstItem="CPG-nz-Uiw" firstAttribute="trailing" secondItem="n4D-6c-nhO" secondAttribute="trailing" id="c1V-6o-oab"/>
+                            <constraint firstItem="n4D-6c-nhO" firstAttribute="leading" secondItem="CPG-nz-Uiw" secondAttribute="leading" id="yLe-jS-DbV"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="393" height="1000"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XZR-xr-wFK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-144.27480916030532" y="1329.5774647887324"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="bBv-gn-VH0">
+            <objects>
+                <viewController id="vfs-sZ-sJP" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b9F-c4-Ej8">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="2000"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fsF-vA-CLU">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="2000"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3G5-rf-7jh">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="2000"/>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="道路の幅の測定" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ASA-eH-fLR">
+                                                <rect key="frame" x="76" y="131" width="240" height="90"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="傾斜（スロープ）の検知とその角度の測定" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0I8-RX-RO5">
+                                                <rect key="frame" x="63" y="507" width="267" height="128"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="エッジの検出" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Jla-9y-gOt">
+                                                <rect key="frame" x="76" y="968" width="240" height="128"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HqQ-ng-PTy">
+                                                <rect key="frame" x="29" y="36" width="88" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="メニュー"/>
+                                                <connections>
+                                                    <segue destination="7YA-lT-JJc" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="ACZ-aM-0kv"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="2000" id="mdS-0Z-doW"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="3G5-rf-7jh" firstAttribute="width" secondItem="fsF-vA-CLU" secondAttribute="width" id="6Nz-Br-M9v"/>
+                                    <constraint firstItem="3G5-rf-7jh" firstAttribute="top" secondItem="fsF-vA-CLU" secondAttribute="top" id="MNB-0k-3lT"/>
+                                    <constraint firstAttribute="bottom" secondItem="3G5-rf-7jh" secondAttribute="bottom" id="bDn-EN-xBY"/>
+                                    <constraint firstAttribute="trailing" secondItem="3G5-rf-7jh" secondAttribute="trailing" id="qXS-Y9-96T"/>
+                                    <constraint firstItem="3G5-rf-7jh" firstAttribute="leading" secondItem="fsF-vA-CLU" secondAttribute="leading" id="zcy-OY-cyX"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="qF9-lH-RGw"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="vGX-pV-e6L"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Arj-Jv-nzB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fsF-vA-CLU" firstAttribute="top" secondItem="Arj-Jv-nzB" secondAttribute="top" id="AP0-yC-Rlz"/>
+                            <constraint firstItem="Arj-Jv-nzB" firstAttribute="trailing" secondItem="fsF-vA-CLU" secondAttribute="trailing" id="ck9-av-bsl"/>
+                            <constraint firstItem="fsF-vA-CLU" firstAttribute="leading" secondItem="Arj-Jv-nzB" secondAttribute="leading" id="ckm-ek-csG"/>
+                            <constraint firstItem="Arj-Jv-nzB" firstAttribute="bottom" secondItem="fsF-vA-CLU" secondAttribute="bottom" id="fnO-GN-Q4a"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="393" height="2000"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mQP-om-CQf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="900" y="1297.8873239436621"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ElV-2a-IHT">
+            <objects>
+                <viewController id="DE8-TE-JDC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iHU-Ae-ewg">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="2000"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WzM-Ec-ssF">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="2000"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mPG-I4-ucW">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="2000"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BarrierVisionLogo" translatesAutoresizingMaskIntoConstraints="NO" id="7my-Jp-BB8">
+                                                <rect key="frame" x="76" y="137" width="240" height="128"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YQ5-Ca-tEw">
+                                                <rect key="frame" x="37" y="30" width="88" height="77"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="メニュー"/>
+                                                <connections>
+                                                    <segue destination="7YA-lT-JJc" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="c31-0d-deh"/>
+                                                </connections>
+                                            </button>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="使い方動画" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6PZ-uy-4cu">
+                                                <rect key="frame" x="76" y="303" width="240" height="78"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="33"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="2000" id="xMX-u0-YUa"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="mPG-I4-ucW" firstAttribute="width" secondItem="WzM-Ec-ssF" secondAttribute="width" id="4V3-s0-X6Q"/>
+                                    <constraint firstItem="mPG-I4-ucW" firstAttribute="leading" secondItem="WzM-Ec-ssF" secondAttribute="leading" id="fmG-sO-Y07"/>
+                                    <constraint firstAttribute="bottom" secondItem="mPG-I4-ucW" secondAttribute="bottom" id="mfQ-W0-taD"/>
+                                    <constraint firstAttribute="trailing" secondItem="mPG-I4-ucW" secondAttribute="trailing" id="sdg-pv-WfG"/>
+                                    <constraint firstItem="mPG-I4-ucW" firstAttribute="top" secondItem="WzM-Ec-ssF" secondAttribute="top" id="yEt-FP-IW5"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="9GH-sf-haC"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="NgT-zX-yMa"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="B9X-QK-jzy"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="WzM-Ec-ssF" firstAttribute="top" secondItem="B9X-QK-jzy" secondAttribute="top" id="WzC-zf-pQg"/>
+                            <constraint firstItem="WzM-Ec-ssF" firstAttribute="leading" secondItem="B9X-QK-jzy" secondAttribute="leading" id="bEb-zv-lTw"/>
+                            <constraint firstItem="B9X-QK-jzy" firstAttribute="trailing" secondItem="WzM-Ec-ssF" secondAttribute="trailing" id="m0q-2E-87z"/>
+                            <constraint firstItem="B9X-QK-jzy" firstAttribute="bottom" secondItem="WzM-Ec-ssF" secondAttribute="bottom" id="wNQ-gj-xfy"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="393" height="2000"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e6V-I7-F7k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1845.0381679389311" y="831.69014084507046"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="7Xo-FT-vuq">
+            <objects>
+                <viewController id="7YA-lT-JJc" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xyl-wt-EUg">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l43-Ox-BtK">
+                                <rect key="frame" x="280" y="85" width="97" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="ホーム"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A0j-6R-aT8">
+                                <rect key="frame" x="284" y="172" width="88" height="81"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Barrier Vision について"/>
+                                <connections>
+                                    <segue destination="SwI-TJ-St6" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="qj3-Af-4G5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v6t-T1-Ipz">
+                                <rect key="frame" x="300" y="277" width="56" height="68"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="機能"/>
+                                <connections>
+                                    <segue destination="vfs-sZ-sJP" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="sEC-XH-pjA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ylT-xW-2Hc">
+                                <rect key="frame" x="292" y="369" width="72" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="使い方"/>
+                                <connections>
+                                    <segue destination="DE8-TE-JDC" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="TPh-QM-MMg"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="CGb-jO-Lsh"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="B8g-Zc-1rw"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wVu-wt-W1m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1207" y="1442"/>
+        </scene>
+        <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
                 <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="BarrierVision" customModuleProvider="target" sceneMemberID="viewController">
@@ -63,7 +337,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J9Q-ui-52u">
-                                <rect key="frame" x="0.0" y="-9" width="393" height="788"/>
+                                <rect key="frame" x="0.0" y="-9" width="393" height="861"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </arscnView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dmw-q5-Fv5">
@@ -129,15 +403,22 @@
             <point key="canvasLocation" x="901.52671755725191" y="64.788732394366207"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="0OH-js-BRI"/>
+        <segue reference="qj3-Af-4G5"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="BarrierVisionLogo" width="1666.6666259765625" height="1031.6666259765625"/>
         <image name="light" width="100.66666412353516" height="95.333335876464844"/>
         <image name="recordframe" width="126" height="108.66666412353516"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
