@@ -102,62 +102,64 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
             
             let averageAngle = angleAverage.average() // 이동 평균 각도
             
-            // 左角度のチェックとノードの追加
-            if abs(leftAngle) >= 2 && abs(leftAngle) <= 10 {
-                let triangleNode = arObjectManager.createTriangleNode(color:UIColor.blue)
-                let textNode = arObjectManager.createTextNode(with: abs(leftAngle),color:UIColor.blue)
-
-                if let left3DPosition = self.performRaycast(from: leftPoint) {
-                    // トライアングルノードの位置を設定
-                    triangleNode.position = SCNVector3(left3DPosition.x, left3DPosition.y, left3DPosition.z)
-                    if leftAngle < 0 {
-                        triangleNode.eulerAngles.y = .pi // 角度が負の場合は反対向きに設置
-                    }
-                    sceneView.scene.rootNode.addChildNode(triangleNode)
-
-                    // テキストノードの位置をトライアングルノードの上に設定
-                    textNode.position = SCNVector3(left3DPosition.x, left3DPosition.y + 0.1, left3DPosition.z) // トライアングルの上に配置
-                    sceneView.scene.rootNode.addChildNode(textNode)
-                }
-            }
-            // 右角度のチェックとノードの追加
-            if abs(rightAngle) >= 2 && abs(rightAngle) <= 10{
-                let triangleNode = arObjectManager.createTriangleNode(color:UIColor.blue)
-                let textNode = arObjectManager.createTextNode(with: abs(rightAngle),color:UIColor.blue)
-                
-                if let right3DPosition = self.performRaycast(from: rightPoint) {
-                    // トライアングルノードの位置を設定
-                    triangleNode.position = SCNVector3(right3DPosition.x, right3DPosition.y, right3DPosition.z)
-                    if leftAngle < 0 {
-                        triangleNode.eulerAngles.y = .pi // 角度が負の場合は反対向きに設置
-                    }
-                    sceneView.scene.rootNode.addChildNode(triangleNode)
-
-                    // テキストノードの位置をトライアングルノードの上に設定
-                    textNode.position = SCNVector3(right3DPosition.x, right3DPosition.y + 0.1, right3DPosition.z) // トライアングルの上に配置
-                    sceneView.scene.rootNode.addChildNode(textNode)
-                }
-            }
+//            // 左角度のチェックとノードの追加
+//            if abs(leftAngle) >= 1.0 && abs(leftAngle) <= 10 {
+//                let triangleNode = arObjectManager.createLeftTriangleNode(color:UIColor.red)
+//                let textNode = arObjectManager.createTextNode(with: abs(leftAngle),color:UIColor.blue)
+//
+//                if let left3DPosition = self.performRaycast(from: leftPoint) {
+//                    // トライアングルノードの位置を設定
+//                    triangleNode.position = SCNVector3(left3DPosition.x, left3DPosition.y, left3DPosition.z)
+//                    //左向き用の三角形を設定
+//                    triangleNode.eulerAngles.z = .pi / 2
+//                    if leftAngle < 0 {
+//                        triangleNode.eulerAngles.y = .pi // 角度が負の場合は反対向きに設置
+//                    }
+//                    sceneView.scene.rootNode.addChildNode(triangleNode)
+//
+//                    // テキストノードの位置をトライアングルノードの上に設定
+//                    textNode.position = SCNVector3(left3DPosition.x, left3DPosition.y + 0.1, left3DPosition.z) // トライアングルの上に配置
+//                    sceneView.scene.rootNode.addChildNode(textNode)
+//                }
+//            }
+//            // 右角度のチェックとノードの追加
+//            if abs(rightAngle) >= 2 && abs(rightAngle) <= 10{
+//                let triangleNode = arObjectManager.createTriangleNode(color:UIColor.blue)
+//                let textNode = arObjectManager.createTextNode(with: abs(rightAngle),color:UIColor.blue)
+//                
+//                if let right3DPosition = self.performRaycast(from: rightPoint) {
+//                    // トライアングルノードの位置を設定
+//                    triangleNode.position = SCNVector3(right3DPosition.x, right3DPosition.y, right3DPosition.z)
+//                    if leftAngle < 0 {
+//                        triangleNode.eulerAngles.y = .pi // 角度が負の場合は反対向きに設置
+//                    }
+//                    sceneView.scene.rootNode.addChildNode(triangleNode)
+//
+//                    // テキストノードの位置をトライアングルノードの上に設定
+//                    textNode.position = SCNVector3(right3DPosition.x, right3DPosition.y + 0.1, right3DPosition.z) // トライアングルの上に配置
+//                    sceneView.scene.rootNode.addChildNode(textNode)
+//                }
+//            }
 
             // 平均角度のチェックとノードの追加
-            if abs(averageAngle) >= 2 && abs(rightAngle) <= 10{
+            //if abs(averageAngle) >= 2 && abs(rightAngle) <= 10{
                 let triangleNode = arObjectManager.createTriangleNode(color:UIColor.blue)
                 let textNode = arObjectManager.createTextNode(with: abs(averageAngle),color:UIColor.blue)
                 // 適切な3D座標を設定する。例えば、中心点を基にするなど
                 if let center3DPosition = self.performRaycast(from: centerPoint) {
+                    print("Raycast Position: \(center3DPosition)")
                     // トライアングルノードの位置を設定
-                    triangleNode.position = SCNVector3(center3DPosition.x, center3DPosition.y, center3DPosition.z)
+                    triangleNode.position = SCNVector3(center3DPosition.x, center3DPosition.y, center3DPosition.z - 1.0)
                     if leftAngle < 0 {
                         triangleNode.eulerAngles.y = .pi // 角度が負の場合は反対向きに設置
                     }
                     sceneView.scene.rootNode.addChildNode(triangleNode)
                     
                     // テキストノードの位置をトライアングルノードの上に設定
-                    textNode.position = SCNVector3(center3DPosition.x, center3DPosition.y + 0.1, center3DPosition.z) // トライアングルの上に配置
+                    textNode.position = SCNVector3(center3DPosition.x, center3DPosition.y + 0.1, center3DPosition.z - 1.0) // トライアングルの上に配置
                     sceneView.scene.rootNode.addChildNode(textNode)
                 }
-            }
-
+            //}
             lastSlopeCalculationTime = time
     }
 
@@ -244,10 +246,12 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
         let dy = point2.y - point1.y
         let dz = point2.z - point1.z
         let horizontalDistance = sqrt(dx*dx + dz*dz)
-        let angleForFloor = atan2(dy, horizontalDistance)
-        let angleInDegrees = angleForFloor * (180.0 / .pi)
+//        let angleForFloor = atan2(dy, horizontalDistance)
+//        let angleInDegrees = angleForFloor * (180.0 / .pi)
         
-        return round(angleInDegrees * 10) / 10
+        let gradient = (dy / horizontalDistance) * 100
+        
+        return round(gradient * 10) / 10
     }
 
     //スロープ用のUIを呼び出す関数
