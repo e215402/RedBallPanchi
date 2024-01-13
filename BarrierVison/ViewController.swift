@@ -16,6 +16,8 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
     let cameraLight = UseCameraLight()
     var isTorchOn = false // トーチの状態を追跡する変数
     var isRecordOn = false //Recの状態を追跡する変数
+    var overlayPoints = [CGPoint]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +27,24 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
         
         let scene = SCNScene()
         sceneView.scene = scene
+        
+        
+        //スロープ計測
+        let totalPoints = 3
+        // 間隔をより適切に調整
+        let gap = view.bounds.height / (CGFloat(totalPoints) * 2)
+        // 開始点を画面中央付近に調整
+        let startY = view.bounds.midY - gap * CGFloat(totalPoints / 2)
+        
+        overlayPoints = []
+        
+        for i in 0..<totalPoints {
+            let y = startY + gap * CGFloat(i)
+            let point = CGPoint(x: view.bounds.midX, y: y)
+            overlayPoints.append(point)
+        }
+        
+        addOverlayViews(points: overlayPoints)
         
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
@@ -67,6 +87,54 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
 //        }
 //    }
     
+    //for angle view
+    func addOverlayViews(points: [CGPoint]) {
+        for point in points {
+            createAndAddView(at: point)
+        }
+    }
+    //raycastのオーバーレイの見た目
+    func createAndAddView(at point: CGPoint) {
+        let size: CGFloat = 8 // プラス記号のサイズ
+        let thickness: CGFloat = 2 // プラス記号の線の太さ
+
+        // 水平な線を作成
+        let horizontalView = UIView()
+        horizontalView.backgroundColor = .green
+        horizontalView.frame = CGRect(x: point.x - size / 2, y: point.y - thickness / 2, width: size, height: thickness)
+
+        // 垂直な線を作成
+        let verticalView = UIView()
+        verticalView.backgroundColor = .green
+        verticalView.frame = CGRect(x: point.x - thickness / 2, y: point.y - size / 2, width: thickness, height: size)
+
+        // ビューを追加
+        view.addSubview(horizontalView)
+        view.addSubview(verticalView)
+    }
+    //for raycast
+    func performRaycast(from point: CGPoint) -> simd_float4? {
+            if let raycastQuery = sceneView.raycastQuery(from: point, allowing: .estimatedPlane, alignment: .any),
+               let result = sceneView.session.raycast(raycastQuery).first {
+                return result.worldTransform.columns.3
+            }
+            return nil
+        }
+
+    //２点間の角度を計算する関数
+    func calculateAngle(_ point1: simd_float4, _ point2: simd_float4) -> Float {
+        let dx = point2.x - point1.x
+        let dy = point2.y - point1.y
+        let dz = point2.z - point1.z
+        let horizontalDistance = sqrt(dx*dx + dz*dz)
+        let angleForFloor = atan2(dy, horizontalDistance)
+        let angleInDegrees = angleForFloor * (180.0 / .pi)
+        
+        return round(angleInDegrees * 10) / 10
+    }
+
+
+
     @IBAction func toggleLightButtonPressed(_ sender: UIButton) {
         isTorchOn.toggle() // トーチの状態を切り替える
         cameraLight.toggleTorch(on: isTorchOn)
