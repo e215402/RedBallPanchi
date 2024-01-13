@@ -17,6 +17,9 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
     var isTorchOn = false // トーチの状態を追跡する変数
     var isRecordOn = false //Recの状態を追跡する変数
     var overlayPoints = [CGPoint]()
+    
+    var lastSlopeCalculationTime: TimeInterval = 0
+    let slopeCalculationInterval: TimeInterval = 1 // 1秒ごとにスロープを計算
 
     
     override func viewDidLoad() {
@@ -54,6 +57,120 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
         sceneView.addGestureRecognizer(tapGesture)
     }
     
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        
+        
+        
+        _ = movingAverage(size: 8292)
+        
+        //スロープ
+        let angleAverage = movingAverage(size: 5)
+        if time - lastSlopeCalculationTime >= slopeCalculationInterval {
+            // 左右の点を定義
+            let horizontalGap: CGFloat = 50 // この値は必要に応じて調整してください
+            let centerIndex = overlayPoints.count / 2
+            let centerPoint = overlayPoints[centerIndex]
+            let leftPoint = CGPoint(x: centerPoint.x - horizontalGap, y: centerPoint.y)
+            let rightPoint = CGPoint(x: centerPoint.x + horizontalGap, y: centerPoint.y)
+            
+            // 左右の点に対してレイキャストを実行
+            let raycastedPointL = self.performRaycast(from: leftPoint)
+            let raycastedPointR = self.performRaycast(from: rightPoint)
+            
+            // 左右の角度を初期化
+            var leftAngle: Float = 0
+            var rightAngle: Float = 0
+            
+            if let pL = raycastedPointL, let pC = self.performRaycast(from: centerPoint) {
+                leftAngle = self.calculateAngle(pC, pL)
+            }
+            if let pR = raycastedPointR, let pC = self.performRaycast(from: centerPoint) {
+                rightAngle = self.calculateAngle(pC, pR)
+            }
+            
+            if overlayPoints.count >= 2 {
+                for i in 0..<(overlayPoints.count - 1) {
+                    let point1 = self.performRaycast(from: overlayPoints[i])
+                    let point2 = self.performRaycast(from: overlayPoints[i + 1])
+                    
+                    if let p1 = point1, let p2 = point2 {
+                        let angle = self.calculateAngle(p1, p2)
+                        _ = angleAverage.add(angle) // 각도 추가 및 평균 업데이트
+                    }
+                }
+            }
+            
+            let averageAngle = angleAverage.average() // 이동 평균 각도
+            
+            // 左角度のチェックとノードの追加
+            if abs(leftAngle) >= 2 && abs(leftAngle) <= 10 {
+                let triangleNode = arObjectManager.createTriangleNode(color:UIColor.blue)
+                let textNode = arObjectManager.createTextNode(with: abs(leftAngle),color:UIColor.blue)
+
+                if let left3DPosition = self.performRaycast(from: leftPoint) {
+                    // トライアングルノードの位置を設定
+                    triangleNode.position = SCNVector3(left3DPosition.x, left3DPosition.y, left3DPosition.z)
+                    if leftAngle < 0 {
+                        triangleNode.eulerAngles.y = .pi // 角度が負の場合は反対向きに設置
+                    }
+                    sceneView.scene.rootNode.addChildNode(triangleNode)
+
+                    // テキストノードの位置をトライアングルノードの上に設定
+                    textNode.position = SCNVector3(left3DPosition.x, left3DPosition.y + 0.1, left3DPosition.z) // トライアングルの上に配置
+                    sceneView.scene.rootNode.addChildNode(textNode)
+                }
+            }
+            // 右角度のチェックとノードの追加
+            if abs(rightAngle) >= 2 && abs(rightAngle) <= 10{
+                let triangleNode = arObjectManager.createTriangleNode(color:UIColor.blue)
+                let textNode = arObjectManager.createTextNode(with: abs(rightAngle),color:UIColor.blue)
+                
+                if let right3DPosition = self.performRaycast(from: rightPoint) {
+                    // トライアングルノードの位置を設定
+                    triangleNode.position = SCNVector3(right3DPosition.x, right3DPosition.y, right3DPosition.z)
+                    if leftAngle < 0 {
+                        triangleNode.eulerAngles.y = .pi // 角度が負の場合は反対向きに設置
+                    }
+                    sceneView.scene.rootNode.addChildNode(triangleNode)
+
+                    // テキストノードの位置をトライアングルノードの上に設定
+                    textNode.position = SCNVector3(right3DPosition.x, right3DPosition.y + 0.1, right3DPosition.z) // トライアングルの上に配置
+                    sceneView.scene.rootNode.addChildNode(textNode)
+                }
+            }
+
+            // 平均角度のチェックとノードの追加
+            if abs(averageAngle) >= 2 && abs(rightAngle) <= 10{
+                let triangleNode = arObjectManager.createTriangleNode(color:UIColor.blue)
+                let textNode = arObjectManager.createTextNode(with: abs(averageAngle),color:UIColor.blue)
+                // 適切な3D座標を設定する。例えば、中心点を基にするなど
+                if let center3DPosition = self.performRaycast(from: centerPoint) {
+                    // トライアングルノードの位置を設定
+                    triangleNode.position = SCNVector3(center3DPosition.x, center3DPosition.y, center3DPosition.z)
+                    if leftAngle < 0 {
+                        triangleNode.eulerAngles.y = .pi // 角度が負の場合は反対向きに設置
+                    }
+                    sceneView.scene.rootNode.addChildNode(triangleNode)
+                    
+                    // テキストノードの位置をトライアングルノードの上に設定
+                    textNode.position = SCNVector3(center3DPosition.x, center3DPosition.y + 0.1, center3DPosition.z) // トライアングルの上に配置
+                    sceneView.scene.rootNode.addChildNode(textNode)
+                }
+            }
+
+            lastSlopeCalculationTime = time
+    }
+
+   
+
+        
+        
+        
+        
+    }
+    
+    
+    
     func showWidthAlert() {
         let alertController = UIAlertController(title: "注意", message: "通路が狭すぎます", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -62,16 +179,16 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
     }
 
     @objc func handleTap(gestureRecognize: UITapGestureRecognizer) {
-        let location = gestureRecognize.location(in: sceneView)
-        // 新しいレイキャストクエリを作成
-        guard let query = sceneView.raycastQuery(from: location, allowing: .estimatedPlane, alignment: .horizontal) else { return }
-        // セッションでレイキャストを実行
-        let results = sceneView.session.raycast(query)
-        if let firstResult = results.first {
-            // レイキャストの結果を使用してAR体験を更新
-            let position = SCNVector3(firstResult.worldTransform.columns.3.x, firstResult.worldTransform.columns.3.y, firstResult.worldTransform.columns.3.z)
-            arObjectManager.placeObjects(at: position, in: sceneView.scene)
-        }
+//        let location = gestureRecognize.location(in: sceneView)
+//        // 新しいレイキャストクエリを作成
+//        guard let query = sceneView.raycastQuery(from: location, allowing: .estimatedPlane, alignment: .horizontal) else { return }
+//        // セッションでレイキャストを実行
+//        let results = sceneView.session.raycast(query)
+//        if let firstResult = results.first {
+//            // レイキャストの結果を使用してAR体験を更新
+//            let position = SCNVector3(firstResult.worldTransform.columns.3.x, firstResult.worldTransform.columns.3.y, firstResult.worldTransform.columns.3.z)
+//            arObjectManager.placeObjects(at: position, in: sceneView.scene)
+//        }
         // デバッグ用の道幅用ポップアップ表示
         showWidthAlert()
     }
@@ -133,7 +250,8 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
         return round(angleInDegrees * 10) / 10
     }
 
-
+    //スロープ用のUIを呼び出す関数
+    
 
     @IBAction func toggleLightButtonPressed(_ sender: UIButton) {
         isTorchOn.toggle() // トーチの状態を切り替える
@@ -195,7 +313,27 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
     }
 }
 
+// MARK: Classes
 
+class movingAverage{
+    private var size: Int
+    private var history: [Float] = []
+    
+    init(size:Int){
+        self.size = size
+    }
+    func add(_ value: Float) -> Float{
+        history.append(value)
+        if history.count > size{
+            history.removeFirst()
+        }
+        return average()
+    }
+    
+    func average() -> Float{
+        return history.reduce(0, +) / Float(history.count)
+    }
+}
 
 
 

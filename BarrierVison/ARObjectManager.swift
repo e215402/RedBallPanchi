@@ -2,11 +2,12 @@ import ARKit
 
 class ARObjectManager {
     // オブジェクトを生成するメソッド
-    func createTriangleNode() -> SCNNode {
+    func createTriangleNode(color:UIColor) -> SCNNode {
+        let sideLength: Float = 0.1  // 二等辺三角形の底辺と高さの長さ
         let vertices: [SCNVector3] = [
-            SCNVector3(0, 0.1, 0),   // 頂点1
-            SCNVector3(-0.1, -0.1, 0), // 頂点2
-            SCNVector3(0.1, -0.1, 0)  // 頂点3
+            SCNVector3(0, 0, 0),        // 頂点1 (直角)
+            SCNVector3(sideLength, 0, 0),  // 頂点2 (x軸上)
+            SCNVector3(0, sideLength, 0)  // 頂点3 (y軸上)
         ]
 
         let indices: [Int32] = [0, 1, 2]
@@ -15,29 +16,20 @@ class ARObjectManager {
         let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
         let geometry = SCNGeometry(sources: [source], elements: [element])
         let material = SCNMaterial()
-        material.diffuse.contents = UIColor.green // 三角形の色を緑に設定
+        material.diffuse.contents = color // 三角形の色を緑に設定
         geometry.materials = [material]
 
         return SCNNode(geometry: geometry)
     }
 
-    func createTextNode() -> SCNNode {
-        let textGeometry = SCNText(string: "3°", extrusionDepth: 0.01)
-        textGeometry.firstMaterial?.diffuse.contents = UIColor.green // テキストの色を緑に設定
+    func createTextNode(with angle: Float,color:UIColor) -> SCNNode {
+        let textGeometry = SCNText(string: "\(angle)°", extrusionDepth: 0.01)
+        textGeometry.firstMaterial?.diffuse.contents = color
         let textNode = SCNNode(geometry: textGeometry)
-        textNode.scale = SCNVector3(0.01, 0.01, 0.01) // テキストのサイズ調整
+        textNode.scale = SCNVector3(0.01, 0.01, 0.01)
         return textNode
     }
+    
 
-    // 指定された位置にオブジェクトを配置するメソッド
-    func placeObjects(at position: SCNVector3, in scene: SCNScene) {
-        let triangleNode = createTriangleNode()
-        triangleNode.position = position
-        scene.rootNode.addChildNode(triangleNode)
-
-        let textNode = createTextNode()
-        textNode.position = SCNVector3(position.x, position.y + 0.1, position.z)
-        scene.rootNode.addChildNode(textNode)
-    }
 }
 
