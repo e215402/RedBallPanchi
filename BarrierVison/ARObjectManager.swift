@@ -6,10 +6,31 @@ class ARObjectManager {
         let scale: Float = 0.15  // 二等辺三角形の底辺と高さの長さ
         
         let vertices: [SCNVector3] = [
-            SCNVector3(0, 0, 0),  // 頂点2 (x軸上)
-            SCNVector3(scale * 1, 0, 0),// 頂点3 (y軸上)
-            SCNVector3(scale * 0.5, scale * sqrt(0.5), 0),        // 頂点1 (直角)
-            ]
+            SCNVector3(-scale, 0, 0),                                   // 頂点1
+            SCNVector3(scale, 0, 0),                               // 頂点2
+            SCNVector3(0, scale, 0),       // 頂点3
+        ]
+        
+        let indices: [Int32] = [0, 1, 2]
+
+        let source = SCNGeometrySource(vertices: vertices)
+        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
+        let geometry = SCNGeometry(sources: [source], elements: [element])
+        let material = SCNMaterial()
+        material.diffuse.contents = color // 三角形の色を緑に設定
+        geometry.materials = [material]
+
+        return SCNNode(geometry: geometry)
+    }
+    func createInvertedTriangleNode(color:UIColor) -> SCNNode {
+        let scale: Float = 0.15
+        let xx:Float = -0.01
+
+        let vertices: [SCNVector3] = [
+            SCNVector3(0, 0, 0),                                  // 頂点1 (底辺の中央)
+            SCNVector3(-scale, scale, xx),       // 頂点2 (底辺の一端)
+            SCNVector3(scale, scale, xx)         // 頂点3 (底辺のもう一端)
+        ]
 
         let indices: [Int32] = [0, 1, 2]
 
