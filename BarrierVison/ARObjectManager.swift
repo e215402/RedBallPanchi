@@ -3,7 +3,7 @@ import ARKit
 class ARObjectManager {
     // オブジェクトを生成するメソッド
     func createTriangleNode(color:UIColor) -> SCNNode {
-        let scale: Float = 0.15  // 二等辺三角形の底辺と高さの長さ
+        let scale: Float = 0.1  // 二等辺三角形の底辺と高さの長さ
         
         let vertices: [SCNVector3] = [
             SCNVector3(-scale, 0, 0),                                   // 頂点1
@@ -18,12 +18,13 @@ class ARObjectManager {
         let geometry = SCNGeometry(sources: [source], elements: [element])
         let material = SCNMaterial()
         material.diffuse.contents = color // 三角形の色を緑に設定
+        material.isDoubleSided = true     // 両面をレンダリングする
         geometry.materials = [material]
 
         return SCNNode(geometry: geometry)
     }
     func createInvertedTriangleNode(color:UIColor) -> SCNNode {
-        let scale: Float = 0.15
+        let scale: Float = 0.1
         let xx:Float = -0.01
 
         let vertices: [SCNVector3] = [
@@ -39,6 +40,7 @@ class ARObjectManager {
         let geometry = SCNGeometry(sources: [source], elements: [element])
         let material = SCNMaterial()
         material.diffuse.contents = color // 三角形の色を緑に設定
+        material.isDoubleSided = true     // 両面をレンダリングする
         geometry.materials = [material]
 
         return SCNNode(geometry: geometry)
