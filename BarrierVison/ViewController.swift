@@ -21,6 +21,22 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
     var lastSlopeCalculationTime: TimeInterval = 0
     let slopeCalculationInterval: TimeInterval = 1 // 1秒ごとにスロープを計算
 
+    //for Obstacles TimeInterval
+    var lastUpdateTime : TimeInterval = 0
+    let updateObstacleInterval : TimeInterval = 0.1
+    
+    //FIFO
+    let forObstaclesNodes = FIFOforNode(size: 1000)
+    let forWallNodes = FIFOforNode(size: 5)
+    var createdNodes = [SCNNode]()
+    var createdWallNodes = [simd_float4x4]()
+    
+    //size
+    var wheelchairSize : Float = 0.7
+    
+    //rawFeaturePoints
+    var processedPoints = Set<vector_float3>()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +66,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
         addOverlayViews(points: overlayPoints)
         
         let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = .horizontal
+        configuration.planeDetection = [.horizontal, .vertical]
         sceneView.session.run(configuration)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
@@ -58,9 +74,6 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        
-        guard let cameraTransform = sceneView.session.currentFrame?.camera.transform else { return }
-        let cameraPosition = simd_make_float3(cameraTransform.columns.3.x, cameraTransform.columns.3.y, cameraTransform.columns.3.z)
         
         _ = movingAverage(size: 8292)
         
@@ -147,42 +160,281 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
 //            if averageAngle.isNaN{
 //                showWidthAlert()
 //            }else{
-            if abs(roundedAverageAngle) >= 1 {
-                let triangleNode: SCNNode
-                if roundedAverageAngle > 0 {
-                    // 角度が正の場合、逆向きの三角形を生成
-                    triangleNode = arObjectManager.createInvertedTriangleNode(color: UIColor.blue)
-                } else {
-                    // 角度が負または0の場合、通常の三角形を生成
-                    triangleNode = arObjectManager.createTriangleNode(color: UIColor.blue)
+                if abs(roundedAverageAngle) >= 1 {
+                    let triangleNode: SCNNode
+                    if roundedAverageAngle > 0 {
+                        // 角度が正の場合、逆向きの三角形を生成
+                        triangleNode = arObjectManager.createInvertedTriangleNode(color: UIColor.blue)
+                    } else {
+                        // 角度が負または0の場合、通常の三角形を生成
+                        triangleNode = arObjectManager.createTriangleNode(color: UIColor.blue)
+                    }
+                    let textNode = arObjectManager.createTextNode(with: abs(roundedAverageAngle), color: UIColor.blue)
+                    // 適切な3D座標を設定する
+                    if let center3DPosition = self.performRaycast(from: centerPoint) {
+                        print("Raycast Position: \(center3DPosition)")
+                        // トライアングルノードの位置を設定
+                        triangleNode.position = SCNVector3(center3DPosition.x, center3DPosition.y, center3DPosition.z-1.0)
+                        // テキストノードの位置をトライアングルノードの上に設定
+                        textNode.position = SCNVector3(center3DPosition.x, center3DPosition.y + 0.15, center3DPosition.z-1.0)
+                        // ノードをシーンに追加
+                        sceneView.scene.rootNode.addChildNode(triangleNode)
+                        sceneView.scene.rootNode.addChildNode(textNode)
+                    }
                 }
-                let textNode = arObjectManager.createTextNode(with: abs(roundedAverageAngle), color: UIColor.blue)
-                // 適切な3D座標を設定する
-                if let center3DPosition = self.performRaycast(from: centerPoint) {
-                    print("Raycast Position: \(center3DPosition)")
-                    // トライアングルノードの位置を設定
-                    triangleNode.position = SCNVector3(center3DPosition.x, center3DPosition.y, center3DPosition.z-1.0)
-                    // テキストノードの位置をトライアングルノードの上に設定
-                    textNode.position = SCNVector3(center3DPosition.x, center3DPosition.y + 0.15, center3DPosition.z-1.0)
-                    // ノードをシーンに追加
-                    sceneView.scene.rootNode.addChildNode(triangleNode)
-                    sceneView.scene.rootNode.addChildNode(textNode)
-                }
-            }
-                lastSlopeCalculationTime = time
+                    lastSlopeCalculationTime = time
             //}
+            
+            
+            //for obstacles
+            if time - lastUpdateTime > updateObstacleInterval{
+                
+                guard let cameraTransform = sceneView.session.currentFrame?.camera.transform else { return }
+                let cameraPosition = simd_make_float3(cameraTransform.columns.3.x, cameraTransform.columns.3.y, cameraTransform.columns.3.z)
+                
+                
+                
+                guard let currentFrame = self.sceneView.session.currentFrame,
+                                       let featurePointsArray = currentFrame.rawFeaturePoints?.points else { return }
+                         // 重複しない特徴点のみを取得
+                let pointCloudBefore = featurePointsArray.filter { processedPoints.insert($0).inserted }
+                let maxDistance: Float = 5.0
+                let pointCloud = pointCloudBefore.filter { point in
+                    let distance = simd_distance(cameraPosition, point)
+                    return distance <= maxDistance && point.y <= (cameraPosition.y-0.3)
+                }
+                
+                
+                // for obstacles ==========================================================================================================================================
+                let heightsForObstacles = pointCloud.map{$0.y}
+                
+                let ave = movingAverage(size: 4000)
+                
+                let obstacleIndex = heightsForObstacles.enumerated().compactMap { index, height in
+                    let avg = ave.add(height)
+                    return height > avg ? index : nil
+                }
+                
+                let obstaclePoints = obstacleIndex.map { pointCloud[$0] }
+                
+                
+                for point in obstaclePoints {
+                    let angleNode = SCNNode()
+                    angleNode.position = SCNVector3(point.x, point.y, point.z)
+                    createdNodes.append(angleNode)
+                }
+                
+                
+                
+                let obstacleLimit: Int = 100
+                //DispatchQueue.main.async {
+                //    self.textLowest.text = "obstacle limit = \(obstacleLimit)"
+                //}
+                
+                if obstaclePoints.count > obstacleLimit{
+                    self.sceneView.scene.rootNode.addChildNode(createSpearNodeWithStride(pointCloud: obstaclePoints, 
+                                                                                         basePoint: cameraPosition,
+                                                                                         size: wheelchairSize))
+                    
+                }else{
+                    print("OK!")
+                }
+                
+                // for floor ==========================================================================================================================================
+                /*
+                 
+                //functions
+                 
+                */
+                
+                lastUpdateTime = time
             }
+            
+            
+            
+        }
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        if let planeAnchor = anchor as? ARPlaneAnchor {
+            // Wall (vertical)
+            if planeAnchor.alignment == .vertical {
+                //node.addChildNode(createWallNode(planeAnchor: planeAnchor)) //will use for appear anchor
+                let node = createWallNode(planeAnchor: planeAnchor)
+                forWallNodes.addNodeList(node)
 
-   
+                if let closestPair = findFacingWalls() {
+                    let transform1 = createdWallNodes[closestPair.0]
+                    let transform2 = createdWallNodes[closestPair.1]
+                    drawLineAndLength(transform1: transform1, transform2: transform2)
+                }
+            }
+            // floor (horizontal)
+            if planeAnchor.alignment == .horizontal {
+                
+                
+            }
+        }
+    }
+                                                                                         
+                                                                                         
+    //for obstacles
+     func createSpearNodeWithStride(pointCloud: [simd_float3], basePoint: simd_float3, size: Float) -> SCNNode {
+         let spearNode = SCNNode()
+         for i in stride(from: 0, to: pointCloud.count, by: 1) {
+             let point = pointCloud[i]
 
+             // basePoint의 x 좌표로부터 wheelchairSize / 2 거리 내에 있는지 확인
+             // basePoint（カメラ）のx座標からwheelChairSize/2距離内に物体があるかを確認
+             //
+             let distanceX = abs(point.x - basePoint.x)
+             let distanceZ = abs(point.z - basePoint.z)
+             if distanceX <= wheelchairSize / 2 && distanceZ <= 2.0{
+                 let node = SCNNode()
+                 let material = SCNMaterial()
+                 material.diffuse.contents = UIColor.red
+
+                 node.geometry = SCNSphere(radius: 0.02)
+                 node.geometry?.firstMaterial = material
+                 node.position = SCNVector3(point.x, point.y, point.z)
+                 node.name = "spear"
+                 forObstaclesNodes.addNodeList(node)
+                 spearNode.addChildNode(node)
+             }
+         }
+         return spearNode
+     }
+                                                                                         
+                                                                                         
+    //for Wall detection
+    func findFacingWalls() -> (Int, Int)? {
+        var closestWallPair: (Int, Int)?
+        var minDistance: Float = Float.greatestFiniteMagnitude
+
+        for i in 0..<createdWallNodes.count {
+            for j in (i+1)..<createdWallNodes.count {
+                let nodeA = createdWallNodes[i]
+                let nodeB = createdWallNodes[j]
+
+                let distance = distanceBetweenNodes(nodeA: nodeA, nodeB: nodeB)
+                if distance <= 2.5 && distance >= 0.3 {
+                    if areNodesAligned(nodeTransformA: nodeA, nodeTransformB: nodeB) {
+                        let angleA = nodeA.columns.1
+                        let angleB = nodeB.columns.1
+                        if areWallsFacingEachOther(angleA: angleA, angleB: angleB) {
+                            if distance < minDistance {
+                                minDistance = distance
+                                closestWallPair = (i, j)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return closestWallPair
+    }
+    
+    
+    func areWallsFacingEachOther(angleA: simd_float4, angleB: simd_float4) -> Bool {
         
+        let dotProduct = dot(angleA, angleB)
+        //return dotProduct < -0.95 || dotProduct > 0.95 //同じ方向または逆方向
+        return dotProduct < -0.95//逆方向のみ
+    }
+    
+    func areNodesAligned(nodeTransformA: simd_float4x4, nodeTransformB: simd_float4x4, tolerance: Float = 0.5) -> Bool {
+        let angle = angleBetweenNodes(nodeTransformA: nodeTransformA, nodeTransformB: nodeTransformB)
+
+        // 각도가 매우 작거나 (거의 같은 방향) 또는 매우 크면 (거의 반대 방향)
+        return angle < tolerance || abs(angle - .pi) < tolerance
+    }
+    
+    func angleBetweenNodes(nodeTransformA: simd_float4x4, nodeTransformB: simd_float4x4) -> Float {
+        let positionA = nodeTransformA.columns.3
+        let positionB = nodeTransformB.columns.3
+        let vectorA = SCNVector3(positionA.x, positionA.y, positionA.z)
+        let vectorB = SCNVector3(positionB.x, positionB.y, positionB.z)
+        let dotProduct = vectorA.x * vectorB.x + vectorA.y * vectorB.y + vectorA.z * vectorB.z
+        let magnitudeA = sqrt(vectorA.x * vectorA.x + vectorA.y * vectorA.y + vectorA.z * vectorA.z)
+        let magnitudeB = sqrt(vectorB.x * vectorB.x + vectorB.y * vectorB.y + vectorB.z * vectorB.z)
+        let cosTheta = dotProduct / (magnitudeA * magnitudeB)
+        return acos(cosTheta) // 라디안 단위의 각도 반환
+    }
+    
+    
+    func distanceBetweenNodes(nodeA: simd_float4x4, nodeB: simd_float4x4) -> Float {
+        let positionA = SCNVector3(nodeA.columns.3.x, nodeA.columns.3.y, nodeA.columns.3.z)
+        let positionB = SCNVector3(nodeB.columns.3.x, nodeB.columns.3.y, nodeB.columns.3.z)
+
+        return sqrt(pow(positionB.x - positionA.x, 2) + pow(positionB.z - positionA.z, 2))
+    }
+    
+    
+    func createWallNode(planeAnchor: ARPlaneAnchor) -> SCNNode {
+        let width = CGFloat(planeAnchor.planeExtent.width)
+        let height = CGFloat(planeAnchor.planeExtent.height)
+        let center = planeAnchor.center
+        let plane = SCNPlane(width: width, height: height)
+        let material = SCNMaterial()
+        material.diffuse.contents = UIColor.red
+        let planeNode = SCNNode(geometry: plane)
+        planeNode.geometry?.materials = [material]
         
+        planeNode.eulerAngles.x = -.pi / 2 // set the angle to attach to the wall
+        planeNode.position = SCNVector3(center.x, 0, center.z)
+        planeNode.name = "wall"
         
+        createdWallNodes.append(planeAnchor.transform)
         
+        if createdWallNodes.count >= forWallNodes.history.count{
+            createdWallNodes.removeFirst()
+        }
+        
+
+        return planeNode
+    }
+    
+    // Draw Line and Length
+    func drawLineAndLength(transform1: matrix_float4x4, transform2: matrix_float4x4) {
+        let nodeLine1 = SCNNode()
+        let nodeLine2 = SCNNode()
+        nodeLine1.simdTransform = transform1
+        nodeLine2.simdTransform = transform2
+        
+        let length = simd_distance(transform1.columns.3, transform2.columns.3)
+        let lengthText = "\(String(format: "%.2f", length))m"
+        
+        // 長さによる色の決定
+        let lineColor = length <= wheelchairSize ? UIColor.red : UIColor.green
+        
+        let lineGeometry = SCNGeometry.line(from: nodeLine1.position, to: nodeLine2.position, color: lineColor)
+        
+        let textGeometry = SCNText(string: lengthText, extrusionDepth: 0.01)
+        textGeometry.font = UIFont.systemFont(ofSize: 0.15)
+        textGeometry.flatness = 1
+        let textMaterial = SCNMaterial()
+        textMaterial.diffuse.contents = lineColor
+        textGeometry.materials = [textMaterial]
+
+        let lineNode = SCNNode(geometry: lineGeometry)
+        let lengthNode = SCNNode(geometry: textGeometry)
+        lengthNode.position = SCNVector3((nodeLine1.position.x + nodeLine2.position.x) / 2, -0.9, (nodeLine1.position.z + nodeLine2.position.z) / 2)
+        
+        let billboardConstraint = SCNBillboardConstraint()
+        lengthNode.constraints = [billboardConstraint]
+        
+        lineNode.name = "line"
+        lengthNode.name = "length"
+        
+        DispatchQueue.main.async{
+            self.sceneView.scene.rootNode.addChildNode(lineNode)
+            self.sceneView.scene.rootNode.addChildNode(lengthNode)
+        }
     }
     
     
     
+    //
     func showWidthAlert() {
         let alertController = UIAlertController(title: "注意", message: "ポインターを道路に向けてください", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -350,8 +602,53 @@ class movingAverage{
 }
 
 
+class FIFOforNode {
+    private var size: Int
+    var history: [SCNNode] = []
+    
+    init(size: Int) {
+        self.size = size
+    }
+    
+    func addNodeList(_ value: SCNNode) {
+        DispatchQueue.main.async {
+            self.history.append(value)
+            if self.history.count > self.size {
+                let nodeForRemove = self.history.removeFirst()
+                nodeForRemove.removeFromParentNode()
+            }
+        }
+    }
+}
 
 
+// MARK: extensions
+
+extension SCNGeometry {
+    class func line(from vector1: SCNVector3, to vector2: SCNVector3, color: UIColor) -> SCNGeometry {
+        let indices: [UInt32] = [0, 1]
+        let source = SCNGeometrySource(vertices: [vector1, vector2])
+        let element = SCNGeometryElement(indices: indices, primitiveType: .line)
+
+        let geometry = SCNGeometry(sources: [source], elements: [element])
+        
+        let material = SCNMaterial()
+        material.diffuse.contents = color
+        geometry.materials = [material]
+
+        return geometry
+    }
+}
+
+
+
+extension Array where Element: Numeric & Comparable {
+    func percentile(_ percentile: Double) -> Element? {
+        let sorted = self.sorted()
+        let index = Int(Double(count) * percentile / 100.0)
+        return index < count ? sorted[index] : nil
+    }
+}
     
 
 
