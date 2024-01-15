@@ -137,24 +137,36 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
             //                    sceneView.scene.rootNode.addChildNode(textNode)
             //                }
             //            }
-            //            // 右角度のチェックとノードの追加
-            //            if abs(rightAngle) >= 2 && abs(rightAngle) <= 10{
-            //                let triangleNode = arObjectManager.createTriangleNode(color:UIColor.blue)
-            //                let textNode = arObjectManager.createTextNode(with: abs(rightAngle),color:UIColor.blue)
-            //
-            //                if let right3DPosition = self.performRaycast(from: rightPoint) {
-            //                    // トライアングルノードの位置を設定
-            //                    triangleNode.position = SCNVector3(right3DPosition.x, right3DPosition.y, right3DPosition.z)
-            //                    if leftAngle < 0 {
-            //                        triangleNode.eulerAngles.y = .pi // 角度が負の場合は反対向きに設置
-            //                    }
-            //                    sceneView.scene.rootNode.addChildNode(triangleNode)
-            //
-            //                    // テキストノードの位置をトライアングルノードの上に設定
-            //                    textNode.position = SCNVector3(right3DPosition.x, right3DPosition.y + 0.1, right3DPosition.z) // トライアングルの上に配置
-            //                    sceneView.scene.rootNode.addChildNode(textNode)
-            //                }
-            //            }
+            // 右角度のチェックとノードの追加
+               if abs(rightAngle) <= 100{
+                   
+                   let rightTriangleNode: SCNNode
+
+                   // トライアングルノードの位置を設定
+                   if rightAngle > 0 {
+                       rightTriangleNode = arObjectManager.createInvertedRightTriangleNode(color:UIColor.white)
+                   }else{
+                       rightTriangleNode = arObjectManager.createRightTriangleNode(color:UIColor.white)
+                   }
+                   // 三角形ノードにビルボード制約を追加
+                   let billboardConstraint = SCNBillboardConstraint()
+                   rightTriangleNode.constraints = [billboardConstraint]
+                   //テキストノードを設定
+                   let textNode = arObjectManager.createTextNode(with: abs(roundedAverageAngle), color:UIColor.white)
+                   // テキストノードにもビルボード制約を追加
+                   textNode.constraints = [billboardConstraint]
+                   // 適切な3D座標を設定する
+                   if let right3DPosition = self.performRaycast(from: rightPoint) {
+                       print("Raycast Position: \(right3DPosition)")
+                       // トライアングルノードの位置を設定
+                       rightTriangleNode.position = SCNVector3(right3DPosition.x, right3DPosition.y, right3DPosition.z-1.0)
+                       // テキストノードの位置をトライアングルノードの上に設定
+                       textNode.position = SCNVector3(right3DPosition.x, right3DPosition.y + 0.15, right3DPosition.z-1.0)
+                       // ノードをシーンに追加
+                       sceneView.scene.rootNode.addChildNode(rightTriangleNode)
+                       sceneView.scene.rootNode.addChildNode(textNode)
+                   }
+               }
             
             // 平均角度のチェックとノードの追加
 //            if averageAngle.isNaN{
