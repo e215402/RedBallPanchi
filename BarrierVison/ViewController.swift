@@ -160,28 +160,49 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
 //            if averageAngle.isNaN{
 //                showWidthAlert()
 //            }else{
-                if abs(roundedAverageAngle) >= 1 {
-                    let triangleNode: SCNNode
-                    if roundedAverageAngle > 0 {
-                        // 角度が正の場合、逆向きの三角形を生成
-                        triangleNode = arObjectManager.createInvertedTriangleNode(color: UIColor.blue)
-                    } else {
-                        // 角度が負または0の場合、通常の三角形を生成
-                        triangleNode = arObjectManager.createTriangleNode(color: UIColor.blue)
-                    }
-                    let textNode = arObjectManager.createTextNode(with: abs(roundedAverageAngle), color: UIColor.blue)
-                    // 適切な3D座標を設定する
-                    if let center3DPosition = self.performRaycast(from: centerPoint) {
-                        print("Raycast Position: \(center3DPosition)")
-                        // トライアングルノードの位置を設定
-                        triangleNode.position = SCNVector3(center3DPosition.x, center3DPosition.y, center3DPosition.z-1.0)
-                        // テキストノードの位置をトライアングルノードの上に設定
-                        textNode.position = SCNVector3(center3DPosition.x, center3DPosition.y + 0.15, center3DPosition.z-1.0)
-                        // ノードをシーンに追加
-                        sceneView.scene.rootNode.addChildNode(triangleNode)
-                        sceneView.scene.rootNode.addChildNode(textNode)
-                    }
+            if abs(roundedAverageAngle) >= 1 && abs(roundedAverageAngle) <= 20 {
+                let triangleNode: SCNNode
+                let color: UIColor
+                
+                // 角度に応じて色を決定
+                switch abs(roundedAverageAngle) {
+                case 12.5...:
+                    color = UIColor.red // 12.5以上の場合は赤色
+                case 8.5...:
+                    color = UIColor.yellow // 8.5以上の場合は黄色
+                default:
+                    color = UIColor.systemBlue // それ以外の場合は青色
                 }
+                
+                //let triangleNode = arObjectManager.createTwoSidesTriangleNode(color: UIColor.blue)
+                if roundedAverageAngle > 0 {
+                    // 角度が正の場合、逆向きの三角形を生成
+                    triangleNode = arObjectManager.createInvertedTriangleNode(color: color)
+                    //triangleNode.eulerAngles.y = .pi // 下り坂の時
+                }else {
+                    // 角度が負または0の場合、通常の三角形を生成
+                    triangleNode = arObjectManager.createTriangleNode(color: color)
+                }
+                // 三角形ノードにビルボード制約を追加
+                let billboardConstraint = SCNBillboardConstraint()
+                triangleNode.constraints = [billboardConstraint]
+                //テキストノードを設定
+                let textNode = arObjectManager.createTextNode(with: abs(roundedAverageAngle), color: color)
+                // テキストノードにもビルボード制約を追加
+                textNode.constraints = [billboardConstraint]
+
+                // 適切な3D座標を設定する
+                if let center3DPosition = self.performRaycast(from: centerPoint) {
+                    print("Raycast Position: \(center3DPosition)")
+                    // トライアングルノードの位置を設定
+                    triangleNode.position = SCNVector3(center3DPosition.x, center3DPosition.y, center3DPosition.z-1.0)
+                    // テキストノードの位置をトライアングルノードの上に設定
+                    textNode.position = SCNVector3(center3DPosition.x, center3DPosition.y + 0.15, center3DPosition.z-1.0)
+                    // ノードをシーンに追加
+                    sceneView.scene.rootNode.addChildNode(triangleNode)
+                    sceneView.scene.rootNode.addChildNode(textNode)
+                }
+            }
                     lastSlopeCalculationTime = time
             //}
             
