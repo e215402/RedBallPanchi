@@ -5,7 +5,7 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControllerDelegate{
     
     let recorder = RPScreenRecorder.shared()
-       
+    
     @IBOutlet var sceneView: ARSCNView!
     
     @IBOutlet weak var lightON: UILabel!
@@ -20,7 +20,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
     
     var lastSlopeCalculationTime: TimeInterval = 0
     let slopeCalculationInterval: TimeInterval = 1 // 1秒ごとにスロープを計算
-
+    
     //for Obstacles TimeInterval
     var lastUpdateTime : TimeInterval = 0
     let updateObstacleInterval : TimeInterval = 0.1
@@ -46,8 +46,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
         
         let scene = SCNScene()
         sceneView.scene = scene
-        
-        
+
         //スロープ計測
         let totalPoints = 3
         // 間隔をより適切に調整
@@ -156,36 +155,57 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
             //                }
             //            }
             
+            
             // 平均角度のチェックとノードの追加
-//            if averageAngle.isNaN{
-//                showWidthAlert()
-//            }else{
-                if abs(roundedAverageAngle) >= 1 {
-                    let triangleNode: SCNNode
-                    if roundedAverageAngle > 0 {
-                        // 角度が正の場合、逆向きの三角形を生成
-                        triangleNode = arObjectManager.createInvertedTriangleNode(color: UIColor.blue)
-                    } else {
-                        // 角度が負または0の場合、通常の三角形を生成
-                        triangleNode = arObjectManager.createTriangleNode(color: UIColor.blue)
-                    }
-                    let textNode = arObjectManager.createTextNode(with: abs(roundedAverageAngle), color: UIColor.blue)
-                    // 適切な3D座標を設定する
-                    if let center3DPosition = self.performRaycast(from: centerPoint) {
-                        print("Raycast Position: \(center3DPosition)")
-                        // トライアングルノードの位置を設定
-                        triangleNode.position = SCNVector3(center3DPosition.x, center3DPosition.y, center3DPosition.z-1.0)
-                        // テキストノードの位置をトライアングルノードの上に設定
-                        textNode.position = SCNVector3(center3DPosition.x, center3DPosition.y + 0.15, center3DPosition.z-1.0)
-                        // ノードをシーンに追加
-                        sceneView.scene.rootNode.addChildNode(triangleNode)
-                        sceneView.scene.rootNode.addChildNode(textNode)
-                    }
+            //            if averageAngle.isNaN{
+            //                showWidthAlert()
+            //            }else{
+            if abs(roundedAverageAngle) >= 1 && abs(roundedAverageAngle) <= 20 {
+                let triangleNode: SCNNode
+                let color: UIColor
+                
+                // 角度に応じて色を決定
+                switch abs(roundedAverageAngle) {
+                case 12.5...:
+                    color = UIColor.red // 12.5以上の場合は赤色
+                case 8.5...:
+                    color = UIColor.yellow // 8.5以上の場合は黄色
+                default:
+                    color = UIColor.systemBlue // それ以外の場合は青色
                 }
-                    lastSlopeCalculationTime = time
+                
+                //let triangleNode = arObjectManager.createTwoSidesTriangleNode(color: UIColor.blue)
+                if roundedAverageAngle > 0 {
+                    // 角度が正の場合、逆向きの三角形を生成
+                    triangleNode = arObjectManager.createInvertedTriangleNode(color: color)
+                    //triangleNode.eulerAngles.y = .pi // 下り坂の時
+                }else {
+                    // 角度が負または0の場合、通常の三角形を生成
+                    triangleNode = arObjectManager.createTriangleNode(color: color)
+                }
+                // 三角形ノードにビルボード制約を追加
+                let billboardConstraint = SCNBillboardConstraint()
+                triangleNode.constraints = [billboardConstraint]
+                //テキストノードを設定
+                let textNode = arObjectManager.createTextNode(with: abs(roundedAverageAngle), color: color)
+                // テキストノードにもビルボード制約を追加
+                textNode.constraints = [billboardConstraint]
+                
+                // 適切な3D座標を設定する
+                if let center3DPosition = self.performRaycast(from: centerPoint) {
+                    print("Raycast Position: \(center3DPosition)")
+                    // トライアングルノードの位置を設定
+                    triangleNode.position = SCNVector3(center3DPosition.x, center3DPosition.y, center3DPosition.z-1.0)
+                    // テキストノードの位置をトライアングルノードの上に設定
+                    textNode.position = SCNVector3(center3DPosition.x, center3DPosition.y + 0.15, center3DPosition.z-1.0)
+                    // ノードをシーンに追加
+                    sceneView.scene.rootNode.addChildNode(triangleNode)
+                    sceneView.scene.rootNode.addChildNode(textNode)
+                }
+            }
+            lastSlopeCalculationTime = time
             //}
-            
-            
+        }
             //for obstacles
             if time - lastUpdateTime > updateObstacleInterval{
                 
@@ -225,7 +245,6 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                 }
                 
                 
-                
                 let obstacleLimit: Int = 100
                 //DispatchQueue.main.async {
                 //    self.textLowest.text = "obstacle limit = \(obstacleLimit)"
@@ -240,7 +259,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                     print("OK!")
                 }
                 
-                // for floor ==========================================================================================================================================
+                // for floor ================================================================================================
                 /*
                  
                 //functions
@@ -249,10 +268,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                 
                 lastUpdateTime = time
             }
-            
-            
-            
-        }
+        
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -344,8 +360,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
     
     func areNodesAligned(nodeTransformA: simd_float4x4, nodeTransformB: simd_float4x4, tolerance: Float = 0.5) -> Bool {
         let angle = angleBetweenNodes(nodeTransformA: nodeTransformA, nodeTransformB: nodeTransformB)
-
-        // 각도가 매우 작거나 (거의 같은 방향) 또는 매우 크면 (거의 반대 방향)
+        
         return angle < tolerance || abs(angle - .pi) < tolerance
     }
     
@@ -358,6 +373,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
         let magnitudeA = sqrt(vectorA.x * vectorA.x + vectorA.y * vectorA.y + vectorA.z * vectorA.z)
         let magnitudeB = sqrt(vectorB.x * vectorB.x + vectorB.y * vectorB.y + vectorB.z * vectorB.z)
         let cosTheta = dotProduct / (magnitudeA * magnitudeB)
+        
         return acos(cosTheta) // 라디안 단위의 각도 반환
     }
     
@@ -389,7 +405,6 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
         if createdWallNodes.count >= forWallNodes.history.count{
             createdWallNodes.removeFirst()
         }
-        
 
         return planeNode
     }
@@ -406,7 +421,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
         
         // 長さによる色の決定
         let lineColor = length <= wheelchairSize ? UIColor.red : UIColor.green
-        
+
         let lineGeometry = SCNGeometry.line(from: nodeLine1.position, to: nodeLine2.position, color: lineColor)
         
         let textGeometry = SCNText(string: lengthText, extrusionDepth: 0.01)
