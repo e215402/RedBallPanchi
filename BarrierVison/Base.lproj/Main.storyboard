@@ -85,16 +85,16 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Hs0-FK-lEy">
-                                                <rect key="frame" x="20" y="306" width="351" height="416"/>
+                                                <rect key="frame" x="20" y="306" width="351" height="302.66666666666674"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <string key="text">車椅子ユーザーを手助けしたい、車椅子を使わない人向けのアプリです。Brrier Visionは、スマホでARカメラを起動し、そのルートが車椅子が走行可能か判別することができます。これはLiDARセンサーを使用することで車いすにとっての障害を検知することが可能で、自分に車いすについての知識がなくてもいつでもどこでも手軽に車いすに優しい環境か理解できる機能が備わっています。</string>
+                                                <string key="text"> 車椅子ユーザーを手助けしたい、車椅子を使わない人向けのアプリです。  Brrier Visionは、スマホでARカメラを起動し、そのルートが車椅子が走行可能か判別することができます。これはLiDARセンサーを使用することで車いすにとっての障害を検知することが可能で、自分に車いすについての知識がなくてもいつでもどこでも手軽に車いすに優しい環境か理解できる機能が備わっています。</string>
                                                 <color key="textColor" systemColor="labelColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jca-ux-dEN">
-                                                <rect key="frame" x="135" y="819" width="120" height="59"/>
+                                                <rect key="frame" x="135" y="616" width="120" height="59"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="How to use"/>
@@ -144,86 +144,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XZR-xr-wFK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-317" y="-62"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="bBv-gn-VH0">
-            <objects>
-                <viewController id="vfs-sZ-sJP" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="b9F-c4-Ej8">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="2000"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fsF-vA-CLU">
-                                <rect key="frame" x="0.0" y="59" width="393" height="1907"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3G5-rf-7jh">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="2000"/>
-                                        <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="道路の幅の測定" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ASA-eH-fLR">
-                                                <rect key="frame" x="76" y="131" width="240" height="90"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <color key="textColor" systemColor="labelColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="傾斜（スロープ）の検知とその角度の測定" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0I8-RX-RO5">
-                                                <rect key="frame" x="63" y="507" width="267" height="128"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <color key="textColor" systemColor="labelColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="エッジの検出" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Jla-9y-gOt">
-                                                <rect key="frame" x="76" y="968" width="240" height="128"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <color key="textColor" systemColor="labelColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HqQ-ng-PTy">
-                                                <rect key="frame" x="273" y="30" width="93" height="82"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="">
-                                                    <backgroundConfiguration key="background" image="ハンバーガーアイコン"/>
-                                                </buttonConfiguration>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="2000" id="mdS-0Z-doW"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="3G5-rf-7jh" firstAttribute="width" secondItem="fsF-vA-CLU" secondAttribute="width" id="6Nz-Br-M9v"/>
-                                    <constraint firstItem="3G5-rf-7jh" firstAttribute="top" secondItem="fsF-vA-CLU" secondAttribute="top" id="MNB-0k-3lT"/>
-                                    <constraint firstAttribute="bottom" secondItem="3G5-rf-7jh" secondAttribute="bottom" id="bDn-EN-xBY"/>
-                                    <constraint firstAttribute="trailing" secondItem="3G5-rf-7jh" secondAttribute="trailing" id="qXS-Y9-96T"/>
-                                    <constraint firstItem="3G5-rf-7jh" firstAttribute="leading" secondItem="fsF-vA-CLU" secondAttribute="leading" id="zcy-OY-cyX"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="qF9-lH-RGw"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="vGX-pV-e6L"/>
-                            </scrollView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="Arj-Jv-nzB"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="fsF-vA-CLU" firstAttribute="top" secondItem="Arj-Jv-nzB" secondAttribute="top" id="AP0-yC-Rlz"/>
-                            <constraint firstItem="Arj-Jv-nzB" firstAttribute="trailing" secondItem="fsF-vA-CLU" secondAttribute="trailing" id="ck9-av-bsl"/>
-                            <constraint firstItem="fsF-vA-CLU" firstAttribute="leading" secondItem="Arj-Jv-nzB" secondAttribute="leading" id="ckm-ek-csG"/>
-                            <constraint firstItem="Arj-Jv-nzB" firstAttribute="bottom" secondItem="fsF-vA-CLU" secondAttribute="bottom" id="fnO-GN-Q4a"/>
-                        </constraints>
-                    </view>
-                    <size key="freeformSize" width="393" height="2000"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mQP-om-CQf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="483" y="289"/>
+            <point key="canvasLocation" x="-318.32061068702291" y="-62.676056338028175"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ElV-2a-IHT">
@@ -252,27 +173,27 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="1. ユーザーがA地点でアプリを起動する。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="U3x-Px-gQV">
-                                                <rect key="frame" x="26" y="484" width="323" height="92"/>
+                                                <rect key="frame" x="26" y="429" width="323" height="75"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" systemColor="labelColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="puS-PE-sid">
-                                                <rect key="frame" x="67" y="584" width="240" height="128"/>
+                                                <rect key="frame" x="67" y="546" width="240" height="128"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="2, カメラを構えながらA地点から想定するルートを歩行する。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eDt-BZ-Kie">
-                                                <rect key="frame" x="37" y="799" width="312" height="128"/>
+                                                <rect key="frame" x="37" y="726" width="312" height="92"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" systemColor="labelColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="歩行動画2" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="guH-MN-IkV">
-                                                <rect key="frame" x="37" y="962" width="240" height="77"/>
+                                                <rect key="frame" x="37" y="845" width="240" height="77"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" systemColor="labelColor"/>
@@ -280,39 +201,31 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="3, 道中にリアルタイムで段差や道の幅、スロープの角度から車椅子ユーザーにとって自力で移動できるか、人とすれ違えるかなどをアプリが判定して教えてくれる。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="TPd-aO-QMi">
-                                                <rect key="frame" x="26" y="1105" width="323" height="272"/>
+                                                <rect key="frame" x="26" y="964" width="323" height="146"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" systemColor="labelColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="動画3" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rQt-9b-e9I">
-                                                <rect key="frame" x="26" y="1385" width="240" height="53"/>
+                                                <rect key="frame" x="26" y="1152" width="240" height="81"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" systemColor="labelColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="4, ルートが車椅子ユーザーにとってバリアフリーかわかる。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5Ox-3x-CaW">
-                                                <rect key="frame" x="26" y="1502" width="323" height="128"/>
+                                                <rect key="frame" x="26" y="1269" width="323" height="89"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" systemColor="labelColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="動画4" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Gce-G8-77b">
-                                                <rect key="frame" x="26" y="1638" width="240" height="82"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <color key="textColor" systemColor="labelColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="5, B地点に到着する。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="d1m-fU-Mar">
-                                                <rect key="frame" x="26" y="1795" width="290" height="105"/>
+                                                <rect key="frame" x="26" y="1424" width="240" height="82"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" systemColor="labelColor"/>
@@ -330,6 +243,14 @@
                                                     <segue destination="7YA-lT-JJc" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="9k1-qT-lLl"/>
                                                 </connections>
                                             </button>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="5, B地点に到着する。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="d1m-fU-Mar">
+                                                <rect key="frame" x="26" y="1559" width="290" height="65"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -361,7 +282,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e6V-I7-F7k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1411" y="234"/>
+            <point key="canvasLocation" x="1409.9236641221373" y="233.80281690140845"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="7Xo-FT-vuq">
@@ -431,16 +352,16 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z26-1Y-WNA">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="2000"/>
                                         <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="このアプリには以下の３つの機能があります。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5Q4-ni-Pri">
-                                                <rect key="frame" x="25" y="151" width="360" height="128"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="このアプリには以下の３つの機能があります。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5Q4-ni-Pri">
+                                                <rect key="frame" x="25" y="151" width="360" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" systemColor="labelColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9iX-eV-uLr">
-                                                <rect key="frame" x="265" y="32" width="93" height="82"/>
+                                                <rect key="frame" x="273" y="30" width="93" height="82"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="">
@@ -458,6 +379,71 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="●道路の道の幅の測定 　　  この機能は壁と壁の距離を計測して可視化することができます。  この情報によってその道を車いすで通過できるか、正面から人が来てもすれ違えるのか、扉を通ったり、エレベータに乗れるのか人間が判断することができます。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xtp-DT-aBx">
+                                                <rect key="frame" x="25" y="255" width="333" height="227"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VqY-GE-WDH">
+                                                <rect key="frame" x="137" y="490" width="100" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="detail"/>
+                                                <connections>
+                                                    <segue destination="sIj-2w-sUn" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="dAJ-da-gsP"/>
+                                                </connections>
+                                            </button>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="●傾斜（スロープ）の検知とその角度の測定   車いすは坂の影響を受けやすいです。そこで道に存在する坂の検知とその勾配を測定して表示します。  坂道は進行方向だけに存在するわけではありません。以下の写真をみてください。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bwq-Zo-2Zs">
+                                                <rect key="frame" x="25" y="654" width="333" height="222"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b7r-c2-cdy">
+                                                <rect key="frame" x="137" y="1417" width="100" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="detail"/>
+                                                <connections>
+                                                    <segue destination="Alg-1q-L4B" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="LlM-Yl-nWS"/>
+                                                </connections>
+                                            </button>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="●エッジの検出   道にある車いすにとって障害となる段差などにマークをつけて強調表示します。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0GN-Nv-aqZ">
+                                                <rect key="frame" x="25" y="1627" width="360" height="114"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="左に勾配のある坂" translatesAutoresizingMaskIntoConstraints="NO" id="a1K-Pv-Nt9">
+                                                <rect key="frame" x="19" y="905" width="336" height="214"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9dU-wW-qh4">
+                                                <rect key="frame" x="25" y="1176" width="333" height="233"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <string key="text"> 進行方向に対して垂直方向にも小さな勾配の坂が存在することがわかります。この小さな勾配が車いすの操作に影響を及ぼします。意識しないと下り方向に曲がってしまいまっすぐ進ません。
+ よって本アプリでは正面方向の坂の勾配だけでなく垂直方向の勾配も検知して測定することができます。</string>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JoV-qU-fb6">
+                                                <rect key="frame" x="137" y="1749" width="100" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="detail"/>
+                                                <connections>
+                                                    <segue destination="9gK-k7-iIZ" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="kqE-Ra-pmQ"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -490,6 +476,239 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u0H-zR-TGj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-973.28244274809151" y="1498.5915492957747"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="qgi-hK-Vvk">
+            <objects>
+                <viewController id="sIj-2w-sUn" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="75e-Op-ORC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="1500"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="99M-Gj-Mvw">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="1500"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Zm-5r-VhJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1500"/>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text=" ●道路の道の幅の測定  この機能は壁と壁の距離を計測して可視化することができます  この情報によってその道を車いすで通過できるか，正面から人が来てもすれ違えるのか，扉を通ったり，エレベータに乗れるのか人間が判断することができます" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="w9A-UF-Cmj">
+                                                <rect key="frame" x="28" y="244" width="336" height="257"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIa-PF-poK">
+                                                <rect key="frame" x="273" y="71" width="93" height="82"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <backgroundConfiguration key="background" image="ハンバーガーアイコン"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <segue destination="7YA-lT-JJc" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="QWY-jH-Skc"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xj-p6-l9J">
+                                                <rect key="frame" x="150" y="509" width="93" height="82"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Back"/>
+                                                <connections>
+                                                    <segue destination="wxb-8T-fUp" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="koK-yy-VMz"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1500" id="ggk-AB-Cpu"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="5Zm-5r-VhJ" secondAttribute="trailing" id="5OT-w4-SHT"/>
+                                    <constraint firstItem="5Zm-5r-VhJ" firstAttribute="width" secondItem="99M-Gj-Mvw" secondAttribute="width" id="UbB-td-6NV"/>
+                                    <constraint firstAttribute="bottom" secondItem="5Zm-5r-VhJ" secondAttribute="bottom" id="oIY-YI-aWs"/>
+                                    <constraint firstItem="5Zm-5r-VhJ" firstAttribute="top" secondItem="99M-Gj-Mvw" secondAttribute="top" id="pL6-eb-ag8"/>
+                                    <constraint firstItem="5Zm-5r-VhJ" firstAttribute="leading" secondItem="99M-Gj-Mvw" secondAttribute="leading" id="tlL-pn-2w1"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="wzS-2y-Xla"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="fWG-P5-X1g"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="X9E-G7-Mlw"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="X9E-G7-Mlw" firstAttribute="trailing" secondItem="99M-Gj-Mvw" secondAttribute="trailing" id="FRa-6P-qwM"/>
+                            <constraint firstItem="X9E-G7-Mlw" firstAttribute="bottom" secondItem="99M-Gj-Mvw" secondAttribute="bottom" id="SNF-NT-G2v"/>
+                            <constraint firstItem="99M-Gj-Mvw" firstAttribute="leading" secondItem="X9E-G7-Mlw" secondAttribute="leading" id="VK6-PP-3be"/>
+                            <constraint firstItem="99M-Gj-Mvw" firstAttribute="top" secondItem="X9E-G7-Mlw" secondAttribute="top" id="cap-BU-acj"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="393" height="1500"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="svH-8T-Ide" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="113.74045801526717" y="1597.8873239436621"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Oxz-jq-bdW">
+            <objects>
+                <viewController id="Alg-1q-L4B" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2gG-t4-HnO">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="1500"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4gw-p8-yF7">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="1500"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAY-l0-6zN">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1500"/>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jlz-Ty-6DY">
+                                                <rect key="frame" x="35" y="189" width="323" height="266"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <string key="text">●傾斜（スロープ）の検知とその角度の測定   車いすは坂の影響を受けやすいです．そこで道に存在する坂の検知とその勾配を測定して表示します
+ 坂道は進行方向だけに存在するわけではありません．以下の写真をみてください.</string>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="左に勾配のある坂" translatesAutoresizingMaskIntoConstraints="NO" id="hWa-yM-c5D">
+                                                <rect key="frame" x="0.0" y="463" width="377" height="243"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8l6-s9-988">
+                                                <rect key="frame" x="25" y="794" width="341" height="265"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <string key="text"> 進行方向に対して垂直方向にも小さな勾配の坂が存在することがわかります．この小さな勾配が車いすの操作に影響を及ぼします．意識しないと下り方向に曲がってしまいまっすぐ進ません．
+ よって本アプリでは正面方向の坂の勾配だけでなく垂直方向の勾配も検知して測定することができます</string>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcz-Qc-OVe">
+                                                <rect key="frame" x="273" y="52" width="93" height="82"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <backgroundConfiguration key="background" image="ハンバーガーアイコン"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <segue destination="7YA-lT-JJc" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="f6w-K4-8MI"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1WE-fs-z2O">
+                                                <rect key="frame" x="132" y="1067" width="128" height="69"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Back"/>
+                                                <connections>
+                                                    <segue destination="wxb-8T-fUp" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="bS8-oJ-xWb"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1500" id="ar1-Bn-gxi"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="XAY-l0-6zN" secondAttribute="trailing" id="96e-EQ-c8N"/>
+                                    <constraint firstItem="XAY-l0-6zN" firstAttribute="leading" secondItem="4gw-p8-yF7" secondAttribute="leading" id="9GB-8v-2f7"/>
+                                    <constraint firstItem="XAY-l0-6zN" firstAttribute="top" secondItem="4gw-p8-yF7" secondAttribute="top" id="IqL-KV-pXr"/>
+                                    <constraint firstItem="XAY-l0-6zN" firstAttribute="width" secondItem="4gw-p8-yF7" secondAttribute="width" id="Wub-gJ-78u"/>
+                                    <constraint firstAttribute="bottom" secondItem="XAY-l0-6zN" secondAttribute="bottom" id="YrJ-1K-VXN"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="jYx-oF-2S2"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="VZf-Fw-Gwl"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vxt-ka-Hnh"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vxt-ka-Hnh" firstAttribute="trailing" secondItem="4gw-p8-yF7" secondAttribute="trailing" id="7XL-eN-e5S"/>
+                            <constraint firstItem="4gw-p8-yF7" firstAttribute="top" secondItem="vxt-ka-Hnh" secondAttribute="top" id="BdZ-tV-39R"/>
+                            <constraint firstItem="4gw-p8-yF7" firstAttribute="leading" secondItem="vxt-ka-Hnh" secondAttribute="leading" id="uSE-1Y-gRs"/>
+                            <constraint firstItem="vxt-ka-Hnh" firstAttribute="bottom" secondItem="4gw-p8-yF7" secondAttribute="bottom" id="ud9-b2-tf8"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="393" height="1500"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cqd-uT-wwl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1090.8396946564885" y="1581.6901408450706"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="f62-uO-XHA">
+            <objects>
+                <viewController id="9gK-k7-iIZ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TTc-A8-KnG">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="1500"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JNZ-zH-tIy">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="1500"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L6w-f5-0Sh">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1500"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LLq-7y-sjP">
+                                                <rect key="frame" x="273" y="60" width="93" height="82"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <backgroundConfiguration key="background" image="ハンバーガーアイコン"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <segue destination="7YA-lT-JJc" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="tAm-a4-Do5"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UcD-IG-Nh0">
+                                                <rect key="frame" x="159" y="503" width="100" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Back"/>
+                                                <connections>
+                                                    <segue destination="wxb-8T-fUp" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="aF1-Km-ncc"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1500" id="25n-Sf-1eY"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="L6w-f5-0Sh" firstAttribute="top" secondItem="JNZ-zH-tIy" secondAttribute="top" id="5rp-f9-CHk"/>
+                                    <constraint firstItem="L6w-f5-0Sh" firstAttribute="width" secondItem="JNZ-zH-tIy" secondAttribute="width" id="SUl-NZ-Ho4"/>
+                                    <constraint firstAttribute="bottom" secondItem="L6w-f5-0Sh" secondAttribute="bottom" id="XOT-Dp-e2j"/>
+                                    <constraint firstItem="L6w-f5-0Sh" firstAttribute="leading" secondItem="JNZ-zH-tIy" secondAttribute="leading" id="trS-79-g1E"/>
+                                    <constraint firstAttribute="trailing" secondItem="L6w-f5-0Sh" secondAttribute="trailing" id="wXH-AY-s76"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="e0X-TB-qGt"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="SXz-3a-TmQ"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="qnP-QH-2dl"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="JNZ-zH-tIy" firstAttribute="top" secondItem="qnP-QH-2dl" secondAttribute="top" id="Er5-l5-t8S"/>
+                            <constraint firstItem="JNZ-zH-tIy" firstAttribute="leading" secondItem="qnP-QH-2dl" secondAttribute="leading" id="O3C-qZ-7r5"/>
+                            <constraint firstItem="qnP-QH-2dl" firstAttribute="bottom" secondItem="JNZ-zH-tIy" secondAttribute="bottom" id="XTD-Jw-SEN"/>
+                            <constraint firstItem="qnP-QH-2dl" firstAttribute="trailing" secondItem="JNZ-zH-tIy" secondAttribute="trailing" id="YQA-Kg-gxo"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="393" height="1500"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XPT-hL-t3k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2043.5114503816792" y="1563.3802816901409"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
@@ -567,8 +786,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="XYm-jR-ANt"/>
-        <segue reference="TPh-QM-MMg"/>
+        <segue reference="koK-yy-VMz"/>
+        <segue reference="0OH-js-BRI"/>
+        <segue reference="cFA-2I-0gd"/>
         <segue reference="qj3-Af-4G5"/>
         <segue reference="bWf-ul-Wqf"/>
     </inferredMetricsTieBreakers>
@@ -577,6 +797,7 @@
         <image name="light" width="100.66666412353516" height="95.333335876464844"/>
         <image name="recordframe" width="126" height="108.66666412353516"/>
         <image name="ハンバーガーアイコン" width="554" height="554"/>
+        <image name="左に勾配のある坂" width="750" height="1000"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
