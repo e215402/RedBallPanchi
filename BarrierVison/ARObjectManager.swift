@@ -45,7 +45,28 @@ class ARObjectManager {
 
         return SCNNode(geometry: geometry)
     }
-    func createLeftTriangleNode(color:UIColor) -> SCNNode {
+    func createInvertedRightTriangleNode(color:UIColor) -> SCNNode {
+        let scale: Float = 0.1  // 二等辺三角形の底辺と高さの長さ
+        
+        let vertices: [SCNVector3] = [
+            SCNVector3(0, 0, 0),
+            SCNVector3(scale, scale, 0),
+            SCNVector3(0, scale, 0)// 頂点3 (y軸上)
+            ]
+
+        let indices: [Int32] = [0, 1, 2]
+
+        let source = SCNGeometrySource(vertices: vertices)
+        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
+        let geometry = SCNGeometry(sources: [source], elements: [element])
+        let material = SCNMaterial()
+        material.diffuse.contents = color // 三角形の色を緑に設定
+        material.isDoubleSided = true
+        geometry.materials = [material]
+
+        return SCNNode(geometry: geometry)
+    }
+    func createRightTriangleNode(color:UIColor) -> SCNNode {
         let scale: Float = 0.1  // 二等辺三角形の底辺と高さの長さ
         
         let vertices: [SCNVector3] = [
@@ -61,7 +82,24 @@ class ARObjectManager {
         let geometry = SCNGeometry(sources: [source], elements: [element])
         let material = SCNMaterial()
         material.diffuse.contents = color // 三角形の色を緑に設定
+        material.isDoubleSided = true
         geometry.materials = [material]
+
+        return SCNNode(geometry: geometry)
+    }
+    // 3D空間内で2点間にラインを描画するためのノードを作成する関数
+    func createLineNode(from start: simd_float4, to end: simd_float4) -> SCNNode {
+        let vertices: [SCNVector3] = [
+            SCNVector3(start.x, start.y, start.z),
+            SCNVector3(end.x, end.y, end.z)
+        ]
+        let indices: [Int32] = [0, 1]
+
+        let source = SCNGeometrySource(vertices: vertices)
+        let element = SCNGeometryElement(indices: indices, primitiveType: .line)
+
+        let geometry = SCNGeometry(sources: [source], elements: [element])
+        geometry.firstMaterial?.diffuse.contents = UIColor.white
 
         return SCNNode(geometry: geometry)
     }
