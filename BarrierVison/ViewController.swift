@@ -157,9 +157,9 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
             
             
             // 平均角度のチェックとノードの追加
-            //            if averageAngle.isNaN{
-            //                showWidthAlert()
-            //            }else{
+//            if averageAngle.isNaN{
+//                showWidthAlert()
+//            }else{
             if abs(roundedAverageAngle) >= 1 && abs(roundedAverageAngle) <= 20 {
                 let triangleNode: SCNNode
                 let color: UIColor
@@ -190,7 +190,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                 let textNode = arObjectManager.createTextNode(with: abs(roundedAverageAngle), color: color)
                 // テキストノードにもビルボード制約を追加
                 textNode.constraints = [billboardConstraint]
-                
+
                 // 適切な3D座標を設定する
                 if let center3DPosition = self.performRaycast(from: centerPoint) {
                     print("Raycast Position: \(center3DPosition)")
@@ -203,7 +203,8 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                     sceneView.scene.rootNode.addChildNode(textNode)
                 }
             }
-            lastSlopeCalculationTime = time
+
+                    lastSlopeCalculationTime = time
             //}
         }
             //for obstacles
