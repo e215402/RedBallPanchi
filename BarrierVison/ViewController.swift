@@ -81,7 +81,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
         let angleAverage = movingAverage(size: 5)
         if time - lastSlopeCalculationTime >= slopeCalculationInterval {
             // 左右の点を定義
-            let horizontalGap: CGFloat = 50 // この値は必要に応じて調整してください
+            let horizontalGap: CGFloat = 500 // この値は必要に応じて調整してください
             let centerIndex = overlayPoints.count / 2
             let centerPoint = overlayPoints[centerIndex]
             let leftPoint = CGPoint(x: centerPoint.x - horizontalGap, y: centerPoint.y)
@@ -117,28 +117,38 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
             let averageAngle = angleAverage.average() // 이동 평균 각도
             let roundedAverageAngle = round(averageAngle * 10)/10
             
-            //            // 左角度のチェックとノードの追加
-            //            if abs(leftAngle) >= 1.0 && abs(leftAngle) <= 10 {
-            //                let triangleNode = arObjectManager.createLeftTriangleNode(color:UIColor.red)
-            //                let textNode = arObjectManager.createTextNode(with: abs(leftAngle),color:UIColor.blue)
-            //
-            //                if let left3DPosition = self.performRaycast(from: leftPoint) {
-            //                    // トライアングルノードの位置を設定
-            //                    triangleNode.position = SCNVector3(left3DPosition.x, left3DPosition.y, left3DPosition.z)
-            //                    //左向き用の三角形を設定
-            //                    triangleNode.eulerAngles.z = .pi / 2
-            //                    if leftAngle < 0 {
-            //                        triangleNode.eulerAngles.y = .pi // 角度が負の場合は反対向きに設置
-            //                    }
-            //                    sceneView.scene.rootNode.addChildNode(triangleNode)
-            //
-            //                    // テキストノードの位置をトライアングルノードの上に設定
-            //                    textNode.position = SCNVector3(left3DPosition.x, left3DPosition.y + 0.1, left3DPosition.z) // トライアングルの上に配置
-            //                    sceneView.scene.rootNode.addChildNode(textNode)
-            //                }
-            //            }
-            // 右角度のチェックとノードの追加
-               if abs(rightAngle) <= 100{
+            // 左角度のチェックとノードの追加
+            if abs(leftAngle) <= 8.5{
+
+               let leftTriangleNode: SCNNode
+
+               // トライアングルノードの位置を設定
+               if leftAngle > 0 {
+                   leftTriangleNode = arObjectManager.createInvertedLeftTriangleNode(color:UIColor.white)
+               }else{
+                   leftTriangleNode = arObjectManager.createLeftTriangleNode(color:UIColor.white)
+               }
+               // 三角形ノードにビルボード制約を追加
+               let billboardConstraint = SCNBillboardConstraint()
+               leftTriangleNode.constraints = [billboardConstraint]
+               //テキストノードを設定
+               let textNode = arObjectManager.createTextNode(with: abs(leftAngle), color:UIColor.white)
+               // テキストノードにもビルボード制約を追加
+               textNode.constraints = [billboardConstraint]
+               // 適切な3D座標を設定する
+               if let left3DPosition = self.performRaycast(from: leftPoint) {
+                   print("Raycast Position: \(left3DPosition)")
+                   // トライアングルノードの位置を設定
+                   leftTriangleNode.position = SCNVector3(left3DPosition.x, left3DPosition.y, left3DPosition.z-1.0)
+                   // テキストノードの位置をトライアングルノードの上に設定
+                   textNode.position = SCNVector3(left3DPosition.x, left3DPosition.y + 0.15, left3DPosition.z-1.0)
+                   // ノードをシーンに追加
+                   sceneView.scene.rootNode.addChildNode(leftTriangleNode)
+                   sceneView.scene.rootNode.addChildNode(textNode)
+               }
+           }
+            // 右角度のチェックとノードの追加(完成)
+            if abs(rightAngle) <= 8.5{
                    
                    let rightTriangleNode: SCNNode
 
@@ -152,7 +162,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                    let billboardConstraint = SCNBillboardConstraint()
                    rightTriangleNode.constraints = [billboardConstraint]
                    //テキストノードを設定
-                   let textNode = arObjectManager.createTextNode(with: abs(roundedAverageAngle), color:UIColor.white)
+                   let textNode = arObjectManager.createTextNode(with: abs(rightAngle), color:UIColor.white)
                    // テキストノードにもビルボード制約を追加
                    textNode.constraints = [billboardConstraint]
                    // 適切な3D座標を設定する
@@ -172,7 +182,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
 //            if averageAngle.isNaN{
 //                showWidthAlert()
 //            }else{
-            if abs(roundedAverageAngle) >= 1 && abs(roundedAverageAngle) <= 20 {
+            if abs(roundedAverageAngle) >= 1 && abs(roundedAverageAngle) <= 15 {
                 let triangleNode: SCNNode
                 let color: UIColor
                 
@@ -229,7 +239,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                 
                 guard let currentFrame = self.sceneView.session.currentFrame,
                                        let featurePointsArray = currentFrame.rawFeaturePoints?.points else { return }
-                         // 重複しない特徴点のみを取得
+                // 重複しない特徴点のみを取得
                 let pointCloudBefore = featurePointsArray.filter { processedPoints.insert($0).inserted }
                 let maxDistance: Float = 5.0
                 let pointCloud = pointCloudBefore.filter { point in
@@ -240,7 +250,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                 
                 // for obstacles ==========================================================================================================================================
                 let heightsForObstacles = pointCloud.map{$0.y}
-                
+                //_ = filterPointCloud(pointCloud, cameraPosition: cameraPosition)
                 let ave = movingAverage(size: 4000)
                 
                 let obstacleIndex = heightsForObstacles.enumerated().compactMap { index, height in
@@ -265,9 +275,9 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                 //}
                 
                 if obstaclePoints.count > obstacleLimit{
-                    self.sceneView.scene.rootNode.addChildNode(createSpearNodeWithStride(pointCloud: obstaclePoints, 
-                                                                                         basePoint: cameraPosition,
-                                                                                         size: wheelchairSize))
+                    //self.sceneView.scene.rootNode.addChildNode(createSpearNodeWithStride(pointCloud: obstaclePoints,
+                                                                                         //basePoint: cameraPosition,
+                                                                                         //size: wheelchairSize))
                     
                 }else{
                     print("OK!")
@@ -326,6 +336,8 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                  let node = SCNNode()
                  let material = SCNMaterial()
                  material.diffuse.contents = UIColor.red
+                 material.transparency = 0.3  // 透明度を設定 (0.0 完全透明, 1.0 完全不透明)
+                 material.isDoubleSided = true  // 両面レンダリングを有効にする
 
                  node.geometry = SCNSphere(radius: 0.02)
                  node.geometry?.firstMaterial = material
@@ -337,7 +349,24 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
          }
          return spearNode
      }
-                                                                                         
+    
+//    func filterPointCloud(_ pointCloud: [simd_float3], cameraPosition: simd_float3) -> [simd_float3] {
+//        // 最も低い点の高さを探す
+//        let minHeight = pointCloud.min(by: { $0.y < $1.y })?.y ?? 0
+//        let heightThreshold = minHeight + 0.2
+//
+//        var filteredPoints = [simd_float3]()
+//
+//        for point in pointCloud {
+//            //カメラの位置から-1mの点群のみ取得
+//            let isBelowCamera = point.y <= (cameraPosition.y - 0.7)
+//            
+//            if isBelowCamera && point.y <= heightThreshold {
+//                filteredPoints.append(point)
+//            }
+//        }
+//        return filteredPoints
+//    }
                                                                                          
     //for Wall detection
     func findFacingWalls() -> (Int, Int)? {
@@ -489,17 +518,6 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
         // デバッグ用の道幅用ポップアップ表示
         showWidthAlert()
     }
-
-    
-//    @objc func handleTap(gestureRecognize: UITapGestureRecognizer) {
-//        showWidthAlert()
-//        let location = gestureRecognize.location(in: sceneView)
-//        let hitResults = sceneView.hitTest(location, types: .existingPlaneUsingExtent)
-//        if let hitResult = hitResults.first {
-//            let position = SCNVector3(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y, hitResult.worldTransform.columns.3.z)
-//            arObjectManager.placeObjects(at: position, in: sceneView.scene)
-//        }
-//    }
     
     //for angle view
     func addOverlayViews(points: [CGPoint]) {
