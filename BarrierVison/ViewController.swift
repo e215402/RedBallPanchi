@@ -37,6 +37,8 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
     //rawFeaturePoints
     var processedPoints = Set<vector_float3>()
     
+    @IBOutlet weak var rightLabel: UILabel!
+    @IBOutlet weak var leftLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,7 +123,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
             if abs(leftAngle) <= 8.5{
 
                let leftTriangleNode: SCNNode
-
+               
                // トライアングルノードの位置を設定
                if leftAngle > 0 {
                    leftTriangleNode = arObjectManager.createInvertedLeftTriangleNode(color:UIColor.white)
@@ -143,8 +145,13 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                    // テキストノードの位置をトライアングルノードの上に設定
                    textNode.position = SCNVector3(left3DPosition.x, left3DPosition.y + 0.15, left3DPosition.z-1.0)
                    // ノードをシーンに追加
-                   sceneView.scene.rootNode.addChildNode(leftTriangleNode)
-                   sceneView.scene.rootNode.addChildNode(textNode)
+                   //sceneView.scene.rootNode.addChildNode(leftTriangleNode)
+                   //sceneView.scene.rootNode.addChildNode(textNode)
+                   
+                   DispatchQueue.main.async{
+                       self.leftLabel.text = "\(left3DPosition)"
+                   }
+                   
                }
            }
             // 右角度のチェックとノードの追加(完成)
@@ -175,6 +182,10 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                        // ノードをシーンに追加
                        sceneView.scene.rootNode.addChildNode(rightTriangleNode)
                        sceneView.scene.rootNode.addChildNode(textNode)
+                       
+                       DispatchQueue.main.async{
+                           self.leftLabel.text = "\(right3DPosition)"
+                       }
                    }
                }
             
