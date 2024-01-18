@@ -1154,7 +1154,7 @@ CiA
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="koK-yy-VMz"/>
-        <segue reference="QWY-jH-Skc"/>
+        <segue reference="0OH-js-BRI"/>
         <segue reference="cFA-2I-0gd"/>
         <segue reference="nD7-D9-02x"/>
         <segue reference="sX3-B7-YCp"/>
@@ -1176,10 +1176,10 @@ CiA
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
