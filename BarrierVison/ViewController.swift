@@ -22,8 +22,8 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
     let slopeCalculationInterval: TimeInterval = 1 // 1秒ごとにスロープを計算
 
     //for Obstacles TimeInterval
-    var lastUpdateTime : TimeInterval = 0
-    let updateObstacleInterval : TimeInterval = 0.1
+    //var lastUpdateTime : TimeInterval = 0
+    //let updateObstacleInterval : TimeInterval = 0.1
     
     //FIFO
     let forObstaclesNodes = FIFOforNode(size: 1000)
@@ -32,7 +32,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
     var createdWallNodes = [simd_float4x4]()
     
     //size
-    var wheelchairSize : Float = 0.7
+    var wheelchairSize : Float = 1.2
     
     //rawFeaturePoints
     var processedPoints = Set<vector_float3>()
@@ -120,80 +120,60 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
             let roundedAverageAngle = round(averageAngle * 10)/10
             
             // 左角度のチェックとノードの追加
-            if abs(leftAngle) <= 8.5{
+//            if abs(leftAngle) <= 8.5{
+//                   
+//                   DispatchQueue.main.async{
+//                       self.leftLabel.text = "\(leftAngle)"
+//                   }
+//        
+//           }
+            if abs(leftAngle) <= 8.5 {
+                DispatchQueue.main.async {
+                    // 符号の追加と数値の絶対値化
+                    let sign = leftAngle >= 0 ? "▼" : "▲"
+                    let text = "L:\(sign) \(abs(leftAngle))"
 
-               let leftTriangleNode: SCNNode
-               
-               // トライアングルノードの位置を設定
-               if leftAngle > 0 {
-                   leftTriangleNode = arObjectManager.createInvertedLeftTriangleNode(color:UIColor.white)
-               }else{
-                   leftTriangleNode = arObjectManager.createLeftTriangleNode(color:UIColor.white)
-               }
-               // 三角形ノードにビルボード制約を追加
-               let billboardConstraint = SCNBillboardConstraint()
-               leftTriangleNode.constraints = [billboardConstraint]
-               //テキストノードを設定
-               let textNode = arObjectManager.createTextNode(with: abs(leftAngle), color:UIColor.white)
-               // テキストノードにもビルボード制約を追加
-               textNode.constraints = [billboardConstraint]
-               // 適切な3D座標を設定する
-               if let left3DPosition = self.performRaycast(from: leftPoint) {
-                   print("Raycast Position: \(left3DPosition)")
-                   // トライアングルノードの位置を設定
-                   leftTriangleNode.position = SCNVector3(left3DPosition.x, left3DPosition.y, left3DPosition.z-1.0)
-                   // テキストノードの位置をトライアングルノードの上に設定
-                   textNode.position = SCNVector3(left3DPosition.x, left3DPosition.y + 0.15, left3DPosition.z-1.0)
-                   // ノードをシーンに追加
-                   //sceneView.scene.rootNode.addChildNode(leftTriangleNode)
-                   //sceneView.scene.rootNode.addChildNode(textNode)
-                   
-                   DispatchQueue.main.async{
-                       self.leftLabel.text = "\(left3DPosition)"
-                   }
-                   
-               }
-           }
-            // 右角度のチェックとノードの追加(完成)
-            if abs(rightAngle) <= 8.5{
-                   
-                   let rightTriangleNode: SCNNode
+                    // ラベルのフォントサイズの変更
+                    self.leftLabel.font = UIFont.systemFont(ofSize: 25) // フォントサイズは適宜調整
 
-                   // トライアングルノードの位置を設定
-                   if rightAngle > 0 {
-                       rightTriangleNode = arObjectManager.createInvertedRightTriangleNode(color:UIColor.white)
-                   }else{
-                       rightTriangleNode = arObjectManager.createRightTriangleNode(color:UIColor.white)
-                   }
-                   // 三角形ノードにビルボード制約を追加
-                   let billboardConstraint = SCNBillboardConstraint()
-                   rightTriangleNode.constraints = [billboardConstraint]
-                   //テキストノードを設定
-                   let textNode = arObjectManager.createTextNode(with: abs(rightAngle), color:UIColor.white)
-                   // テキストノードにもビルボード制約を追加
-                   textNode.constraints = [billboardConstraint]
-                   // 適切な3D座標を設定する
-                   if let right3DPosition = self.performRaycast(from: rightPoint) {
-                       print("Raycast Position: \(right3DPosition)")
-                       // トライアングルノードの位置を設定
-                       rightTriangleNode.position = SCNVector3(right3DPosition.x, right3DPosition.y, right3DPosition.z-1.0)
-                       // テキストノードの位置をトライアングルノードの上に設定
-                       textNode.position = SCNVector3(right3DPosition.x, right3DPosition.y + 0.15, right3DPosition.z-1.0)
-                       // ノードをシーンに追加
-                       sceneView.scene.rootNode.addChildNode(rightTriangleNode)
-                       sceneView.scene.rootNode.addChildNode(textNode)
-                       
-                       DispatchQueue.main.async{
-                           self.leftLabel.text = "\(right3DPosition)"
-                       }
-                   }
-               }
+                    // ラベルの背景色を透明に設定し、枠線を追加
+                    self.leftLabel.textAlignment = .center
+                    self.leftLabel.backgroundColor = UIColor.clear   // 背景色を透明に設定
+                    self.leftLabel.layer.borderColor = UIColor.white.cgColor // 枠線の色を黒に設定
+                    self.leftLabel.layer.borderWidth = 2.0          // 枠線の太さ
+                    self.leftLabel.layer.cornerRadius = 5.0         // 角を丸くする場合
+                    self.leftLabel.clipsToBounds = true             // 角丸設定を有効化
+                    self.leftLabel.frame = CGRect(x: 10, y: 400, width: 100, height: 50) // 位置とサイズを設定
+                    self.leftLabel.text = text
+                }
+            }
             
+            // 右角度のチェックとノードの追加(完成)
+            if abs(rightAngle) <= 8.5 {
+                DispatchQueue.main.async {
+                    // 符号の追加と数値の絶対値化
+                    let sign = rightAngle >= 0 ? "▼" : "▲"
+                    let text = "R:\(sign) \(abs(rightAngle))"
+
+                    // ラベルのフォントサイズの変更
+                    self.rightLabel.font = UIFont.systemFont(ofSize: 25) // フォントサイズは適宜調整
+
+                    // ラベルの背景色を透明に設定し、枠線を追加
+                    self.rightLabel.textAlignment = .center
+                    self.rightLabel.backgroundColor = UIColor.clear   // 背景色を透明に設定
+                    self.rightLabel.layer.borderColor = UIColor.white.cgColor // 枠線の色を黒に設定
+                    self.rightLabel.layer.borderWidth = 2.0          // 枠線の太さ
+                    self.rightLabel.layer.cornerRadius = 5.0         // 角を丸くする場合
+                    self.rightLabel.clipsToBounds = true             // 角丸設定を有効化
+                    self.rightLabel.frame = CGRect(x: 280, y: 400, width: 100, height: 50) // 位置とサイズを設定
+                    self.rightLabel.text = text
+                }
+            }
             // 平均角度のチェックとノードの追加
 //            if averageAngle.isNaN{
 //                showWidthAlert()
 //            }else{
-            if abs(roundedAverageAngle) >= 1 && abs(roundedAverageAngle) <= 15 {
+            if abs(roundedAverageAngle) >= 2.0 && abs(roundedAverageAngle) <= 15 {
                 let triangleNode: SCNNode
                 let color: UIColor
                 
@@ -206,7 +186,6 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                 default:
                     color = UIColor.systemBlue // それ以外の場合は青色
                 }
-                
                 //let triangleNode = arObjectManager.createTwoSidesTriangleNode(color: UIColor.blue)
                 if roundedAverageAngle > 0 {
                     // 角度が正の場合、逆向きの三角形を生成
@@ -241,7 +220,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
             
             
             //for obstacles
-            if time - lastUpdateTime > updateObstacleInterval{
+            //if time - lastUpdateTime > updateObstacleInterval{
                 
                 guard let cameraTransform = sceneView.session.currentFrame?.camera.transform else { return }
                 let cameraPosition = simd_make_float3(cameraTransform.columns.3.x, cameraTransform.columns.3.y, cameraTransform.columns.3.z)
@@ -255,7 +234,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                 let maxDistance: Float = 5.0
                 let pointCloud = pointCloudBefore.filter { point in
                     let distance = simd_distance(cameraPosition, point)
-                    return distance <= maxDistance && point.y <= (cameraPosition.y-0.3)
+                    return distance <= maxDistance && point.y <= (cameraPosition.y-0.7)
                 }
                 
                 
@@ -271,25 +250,16 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                 
                 let obstaclePoints = obstacleIndex.map { pointCloud[$0] }
                 
-                
-                for point in obstaclePoints {
-                    let angleNode = SCNNode()
-                    angleNode.position = SCNVector3(point.x, point.y, point.z)
-                    createdNodes.append(angleNode)
-                }
-                
-                
-                
-                let obstacleLimit: Int = 100
+                let obstacleLimit: Int = 0
                 //DispatchQueue.main.async {
                 //    self.textLowest.text = "obstacle limit = \(obstacleLimit)"
                 //}
                 
                 if obstaclePoints.count > obstacleLimit{
-                    //self.sceneView.scene.rootNode.addChildNode(createSpearNodeWithStride(pointCloud: obstaclePoints,
-                                                                                         //basePoint: cameraPosition,
-                                                                                         //size: wheelchairSize))
-                    
+                    self.sceneView.scene.rootNode.addChildNode(createSpearNodeWithStride(pointCloud: obstaclePoints,
+                                                                                         basePoint: cameraPosition,
+                                                                                         size: wheelchairSize))
+
                 }else{
                     print("OK!")
                 }
@@ -301,11 +271,8 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                  
                 */
                 
-                lastUpdateTime = time
-            }
-            
-            
-            
+                //lastUpdateTime = time
+            //}
         }
     }
     
@@ -331,7 +298,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
         }
     }
                                                                                          
-                                                                                         
+                                                                                        
     //for obstacles
      func createSpearNodeWithStride(pointCloud: [simd_float3], basePoint: simd_float3, size: Float) -> SCNNode {
          let spearNode = SCNNode()
@@ -527,7 +494,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
 //            arObjectManager.placeObjects(at: position, in: sceneView.scene)
 //        }
         // デバッグ用の道幅用ポップアップ表示
-        showWidthAlert()
+        //showWidthAlert()
     }
     
     //for angle view
