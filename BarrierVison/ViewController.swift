@@ -5,7 +5,7 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControllerDelegate{
     
     let recorder = RPScreenRecorder.shared()
-       
+    
     @IBOutlet var sceneView: ARSCNView!
     
     @IBOutlet weak var lightON: UILabel!
@@ -20,7 +20,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
     
     var lastSlopeCalculationTime: TimeInterval = 0
     let slopeCalculationInterval: TimeInterval = 1 // 1秒ごとにスロープを計算
-
+    
     //for Obstacles TimeInterval
     //var lastUpdateTime : TimeInterval = 0
     //let updateObstacleInterval : TimeInterval = 0.1
@@ -51,11 +51,12 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
         
         
         //スロープ計測
-        let totalPoints = 3
+        let smallOffset: CGFloat = 30//raycast微調整用の数字
+        let totalPoints = 2
         // 間隔をより適切に調整
-        let gap = view.bounds.height / (CGFloat(totalPoints) * 2)
+        let gap = view.bounds.height / (CGFloat(totalPoints) * 3)
         // 開始点を画面中央付近に調整
-        let startY = view.bounds.midY - gap * CGFloat(totalPoints / 2)
+        let startY = view.bounds.midY + gap * CGFloat(totalPoints / 2) + smallOffset
         
         overlayPoints = []
         
@@ -77,7 +78,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         
-        _ = movingAverage(size: 8292)
+        
         
         //スロープ
         let angleAverage = movingAverage(size: 5)
@@ -119,23 +120,16 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
             let averageAngle = angleAverage.average() // 이동 평균 각도
             let roundedAverageAngle = round(averageAngle * 10)/10
             
-            // 左角度のチェックとノードの追加
-//            if abs(leftAngle) <= 8.5{
-//                   
-//                   DispatchQueue.main.async{
-//                       self.leftLabel.text = "\(leftAngle)"
-//                   }
-//        
-//           }
+            
             if abs(leftAngle) <= 8.5 {
                 DispatchQueue.main.async {
                     // 符号の追加と数値の絶対値化
                     let sign = leftAngle >= 0 ? "▼" : "▲"
                     let text = "L:\(sign) \(abs(leftAngle))"
-
+                    
                     // ラベルのフォントサイズの変更
                     self.leftLabel.font = UIFont.systemFont(ofSize: 25) // フォントサイズは適宜調整
-
+                    
                     // ラベルの背景色を透明に設定し、枠線を追加
                     self.leftLabel.textAlignment = .center
                     self.leftLabel.backgroundColor = UIColor.clear   // 背景色を透明に設定
@@ -154,10 +148,10 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                     // 符号の追加と数値の絶対値化
                     let sign = rightAngle >= 0 ? "▼" : "▲"
                     let text = "R:\(sign) \(abs(rightAngle))"
-
+                    
                     // ラベルのフォントサイズの変更
                     self.rightLabel.font = UIFont.systemFont(ofSize: 25) // フォントサイズは適宜調整
-
+                    
                     // ラベルの背景色を透明に設定し、枠線を追加
                     self.rightLabel.textAlignment = .center
                     self.rightLabel.backgroundColor = UIColor.clear   // 背景色を透明に設定
@@ -169,10 +163,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                     self.rightLabel.text = text
                 }
             }
-            // 平均角度のチェックとノードの追加
-//            if averageAngle.isNaN{
-//                showWidthAlert()
-//            }else{
+            
             if abs(roundedAverageAngle) >= 2.0 && abs(roundedAverageAngle) <= 15 {
                 let triangleNode: SCNNode
                 let color: UIColor
@@ -202,7 +193,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                 let textNode = arObjectManager.createTextNode(with: abs(roundedAverageAngle), color: color)
                 // テキストノードにもビルボード制約を追加
                 textNode.constraints = [billboardConstraint]
-
+                
                 // 適切な3D座標を設定する
                 if let center3DPosition = self.performRaycast(from: centerPoint) {
                     print("Raycast Position: \(center3DPosition)")
@@ -214,13 +205,15 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                     sceneView.scene.rootNode.addChildNode(triangleNode)
                     sceneView.scene.rootNode.addChildNode(textNode)
                 }
+                
             }
-                    lastSlopeCalculationTime = time
-            //}
+            lastSlopeCalculationTime = time
             
             
-            //for obstacles
-            //if time - lastUpdateTime > updateObstacleInterval{
+        }
+
+        
+        
                 
                 guard let cameraTransform = sceneView.session.currentFrame?.camera.transform else { return }
                 let cameraPosition = simd_make_float3(cameraTransform.columns.3.x, cameraTransform.columns.3.y, cameraTransform.columns.3.z)
@@ -241,7 +234,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                 // for obstacles ==========================================================================================================================================
                 let heightsForObstacles = pointCloud.map{$0.y}
                 //_ = filterPointCloud(pointCloud, cameraPosition: cameraPosition)
-                let ave = movingAverage(size: 4000)
+                let ave = movingAverage(size: 1000)
                 
                 let obstacleIndex = heightsForObstacles.enumerated().compactMap { index, height in
                     let avg = ave.add(height)
@@ -250,7 +243,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                 
                 let obstaclePoints = obstacleIndex.map { pointCloud[$0] }
                 
-                let obstacleLimit: Int = 0
+                let obstacleLimit: Int = 50
                 //DispatchQueue.main.async {
                 //    self.textLowest.text = "obstacle limit = \(obstacleLimit)"
                 //}
@@ -260,21 +253,9 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
                                                                                          basePoint: cameraPosition,
                                                                                          size: wheelchairSize))
 
-                }else{
-                    print("OK!")
                 }
-                
-                // for floor ==========================================================================================================================================
-                /*
-                 
-                //functions
-                 
-                */
-                
-                //lastUpdateTime = time
-            //}
         }
-    }
+    
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         if let planeAnchor = anchor as? ARPlaneAnchor {
