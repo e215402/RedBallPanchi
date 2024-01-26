@@ -562,7 +562,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
         isRecordOn = !isRecordOn
         if isRecordOn {
             UIView.animate(withDuration: 0.2) {
-                self.recordButton.frame = CGRect(x:182, y:705, width:30, height:30)
+                self.recordButton.frame = CGRect(x:331, y:715, width:30, height:30)
                 self.recordButton.layer.cornerRadius = 3.0
             }
             startRecording()
@@ -573,7 +573,7 @@ class ViewController: UIViewController, ARSCNViewDelegate ,RPPreviewViewControll
 //            }
         } else {
             UIView.animate(withDuration: 0.2) {
-                self.recordButton.frame = CGRect(x:172, y:695, width:50, height:50)
+                self.recordButton.frame = CGRect(x:321, y:705, width:50, height:50)
                 self.recordButton.layer.cornerRadius = 25
             }
             endRecording()
